@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+    --color-ink: #12131A;
+    --color-paper: #FAFAF8;
+    --color-graphite: #4B4F58;
+    --color-mist: #E4E4E0;
+    --color-signal: #5B5FEF;
+    --color-signal-dim: #EEF0FF;
+    --color-teal: #00A896;
+
+    --font-display: "Space Grotesk", sans-serif;
+    --font-body: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+    background-color: var(--color-paper);
+    font-family: var(--font-body);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+.blob {
+    animation: float 12s ease-in-out infinite;
+}
+
+.blob-delay {
+    animation: float 12s ease-in-out infinite;
+    animation-delay: -6s;
+}
+
+.mesh-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-mist);
+    border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-signal);
+}
+
+html {
+    scroll-behavior: smooth;
+}
