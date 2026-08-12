@@ -1,47 +1,118 @@
 @import "tailwindcss";
 
 @theme {
-    --color-ink: #12131A;
+    /* Core brand */
+    --color-ink: #0B0D14;
+    --color-ink-soft: #12131A;
     --color-paper: #FAFAF8;
     --color-graphite: #4B4F58;
     --color-mist: #E4E4E0;
     --color-signal: #5B5FEF;
     --color-signal-dim: #EEF0FF;
     --color-teal: #00A896;
+    --color-violet: #8B7BF7;
+
+    /* Dark surfaces for hero / immersive sections */
+    --color-void: #06070C;
+    --color-slate-panel: #10121C;
 
     --font-display: "Space Grotesk", sans-serif;
     --font-body: "Inter", sans-serif;
     --font-mono: "JetBrains Mono", monospace;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--color-paper);
     font-family: var(--font-body);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+/* ============ Scrollbar ============ */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-paper); }
+::-webkit-scrollbar-thumb { background: var(--color-mist); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-signal); }
+
+/* ============ Utility surfaces ============ */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+.glass-dark {
+    background: rgba(18, 20, 30, 0.55);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.cursor-blink {
-    animation: blink 1s step-end infinite;
+/* Aurora / gradient text */
+.text-gradient {
+    background: linear-gradient(100deg, #8B7BF7 0%, #5B5FEF 45%, #00A896 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
+
+/* 3D helpers */
+.perspective-1000 { perspective: 1200px; }
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+
+/* ============ Keyframes ============ */
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+.cursor-blink { animation: blink 1s step-end infinite; }
 
 @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -40px) scale(1.05); }
-    66% { transform: translate(-20px, 20px) scale(0.95); }
+    0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-40px) scale(1.05); }
+    66% { transform: translate(-20px,20px) scale(0.95); }
+}
+.blob { animation: float 14s ease-in-out infinite; }
+.blob-delay { animation: float 14s ease-in-out infinite; animation-delay: -7s; }
+
+@keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+.float-card { animation: floatCard 6s ease-in-out infinite; }
+.float-card-slow { animation: floatCard 8s ease-in-out infinite; animation-delay: -2s; }
+.float-card-slower { animation: floatCard 7s ease-in-out infinite; animation-delay: -4s; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.blob {
-    animation: float 12s ease-in-out infinite;
+@keyframes auroraShift {
+    0%,100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(-6%, 4%) rotate(8deg); }
 }
+.aurora { animation: auroraShift 20s ease-in-out infinite; }
 
-.blob-delay {
-    animation: float 12s ease-in-out infinite;
-    animation-delay: -6s;
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spinSlow 18s linear infinite; }
+
+@keyframes shine {
+    0% { transform: translateX(-120%) skewX(-20deg); }
+    60%,100% { transform: translateX(220%) skewX(-20deg); }
 }
+.shine-sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: translateX(-120%) skewX(-20deg);
+    pointer-events: none;
+}
+.shine-sweep:hover::after { animation: shine 0.9s ease; }
 
 .mesh-bg {
     position: absolute;
@@ -50,31 +121,46 @@ body {
     pointer-events: none;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Card hover lift with 3D */
+.card-3d {
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
+/* Grid pattern overlay */
+.grid-overlay {
+    background-image:
+        linear-gradient(rgba(91,95,239,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91,95,239,0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
 }
-::-webkit-scrollbar-track {
-    background: var(--color-paper);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--color-mist);
-    border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-signal);
+.grid-overlay-dark {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 48px 48px;
 }
 
-html {
-    scroll-behavior: smooth;
+/* Marquee */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 28s linear infinite; }
+.marquee-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ============ Motion / performance guards ============ */
+/* Disable pointer-parallax + heavy anims on touch devices */
+@media (hover: none) {
+    .float-card, .float-card-slow, .float-card-slower { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .blob, .blob-delay, .aurora, .float-card, .float-card-slow, .float-card-slower, .spin-slow, .marquee-track { animation: none !important; }
 }

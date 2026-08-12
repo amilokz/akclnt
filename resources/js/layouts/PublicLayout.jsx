@@ -1,11 +1,20 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar.jsx';
 import Footer from '../components/layout/Footer.jsx';
+import Loader from '../components/ui/Loader.jsx';
 
 export default function PublicLayout() {
+    const location = useLocation();
+
+    // Scroll to top on route change for a clean transition.
+    React.useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    }, [location.pathname]);
+
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col bg-paper">
+            <Loader />
             <Navbar />
             <main className="flex-1">
                 <Outlet />
