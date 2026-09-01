@@ -164,3 +164,285 @@ body {
     }
     .blob, .blob-delay, .aurora, .float-card, .float-card-slow, .float-card-slower, .spin-slow, .marquee-track { animation: none !important; }
 }
+
+
+/* ============ LOVABLE AI HERO STYLES ============ */
+
+/* Background grid for hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 7%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 7%) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Primary button - gradient */
+.btn-primary {
+  background: linear-gradient(135deg, #5B5FEF, #8B7BF7);
+  box-shadow: 0 18px 40px -18px rgba(91, 95, 239, 0.65);
+  color: white;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 24px 52px -18px rgba(91, 95, 239, 0.8);
+}
+
+/* Ghost button - outline */
+.btn-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.03);
+  color: #FAFAF8;
+  transition: border-color 220ms ease, background-color 220ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(91, 95, 239, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Border utility */
+.hairline-b {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.border-hairline {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Background utilities */
+.bg-background {
+  background-color: #06070C;
+}
+
+.bg-background\/70 {
+  background-color: rgba(6, 7, 12, 0.7);
+}
+
+/* Text colors */
+.text-foreground {
+  color: #FAFAF8;
+}
+
+.text-muted-foreground {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Ring utility */
+.ring-background {
+  --tw-ring-color: #06070C;
+}
+
+/* ============ ANIMATIONS FOR TECH VISUAL ============ */
+
+/* Slow spin - for orbital rings */
+.orbit-slow {
+  animation: akclnt-spin 68s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+/* Reverse spin */
+.orbit-reverse {
+  animation: akclnt-spin 44s linear infinite reverse;
+  transform-origin: 50% 50%;
+}
+
+/* Core pulse */
+.core-pulse {
+  animation: akclnt-pulse 5.5s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes akclnt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes akclnt-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.035);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-slow,
+  .orbit-reverse,
+  .core-pulse {
+    animation: none;
+  }
+}
+
+/* ============ TEXT ANIMATIONS ============ */
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Letter by letter animation */
+@keyframes letterPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Word by word animation */
+.animate-words span {
+    display: inline-block;
+    animation: letterPop 0.5s ease forwards;
+    opacity: 0;
+}
+
+.animate-words span:nth-child(1) { animation-delay: 0.1s; }
+.animate-words span:nth-child(2) { animation-delay: 0.2s; }
+.animate-words span:nth-child(3) { animation-delay: 0.3s; }
+.animate-words span:nth-child(4) { animation-delay: 0.4s; }
+.animate-words span:nth-child(5) { animation-delay: 0.5s; }
+.animate-words span:nth-child(6) { animation-delay: 0.6s; }
+.animate-words span:nth-child(7) { animation-delay: 0.7s; }
+.animate-words span:nth-child(8) { animation-delay: 0.8s; }
+.animate-words span:nth-child(9) { animation-delay: 0.9s; }
+.animate-words span:nth-child(10) { animation-delay: 1.0s; }
+
+/* Typewriter effect */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: #5B5FEF; }
+}
+
+.typewriter {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #5B5FEF;
+    animation: 
+        typewriter 2s steps(30) forwards,
+        blinkCursor 0.8s step-end infinite;
+    max-width: fit-content;
+}
+
+
+/* ============ WORD-BY-WORD ANIMATION ============ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-words span {
+    display: inline-block;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.animate-words span:nth-child(1) { animation-delay: 0.05s; }
+.animate-words span:nth-child(2) { animation-delay: 0.10s; }
+.animate-words span:nth-child(3) { animation-delay: 0.15s; }
+.animate-words span:nth-child(4) { animation-delay: 0.20s; }
+.animate-words span:nth-child(5) { animation-delay: 0.25s; }
+.animate-words span:nth-child(6) { animation-delay: 0.30s; }
+.animate-words span:nth-child(7) { animation-delay: 0.35s; }
+
+/* Optional: Hover effect */
+.animate-words span:hover {
+    animation: wiggle 0.5s ease;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-3deg) scale(1.02); }
+    75% { transform: rotate(3deg) scale(1.02); }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .animate-words span {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+@keyframes wordSlideInLoop {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.9);
+    }
+    10% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    90% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.9);
+    }
+}
+
+.animate-words-badge-loop span {
+    display: inline-block !important;
+    animation: wordSlideInLoop 6s ease infinite;
+    opacity: 0;
+}
+
+.animate-words-badge-loop span:nth-child(1) { animation-delay: 0.0s; }
+.animate-words-badge-loop span:nth-child(2) { animation-delay: 0.6s; }
+.animate-words-badge-loop span:nth-child(3) { animation-delay: 1.2s; }
+.animate-words-badge-loop span:nth-child(4) { animation-delay: 1.8s; }
+.animate-words-badge-loop span:nth-child(5) { animation-delay: 2.4s; }
+
+/* Space between words */
+.animate-words-badge-loop span:not(:last-child)::after {
+    content: " ";
+}
+
+.animate-words-badge-loop span {
+    display: inline-block !important;
+    animation: wordSlideInLoop 6s ease infinite;
+    opacity: 0;
+}
+
+.animate-words-badge-loop span:nth-child(1) { animation-delay: 0.0s; }
+.animate-words-badge-loop span:nth-child(2) { animation-delay: 0.6s; }
+.animate-words-badge-loop span:nth-child(3) { animation-delay: 1.2s; }
+.animate-words-badge-loop span:nth-child(4) { animation-delay: 1.8s; }
+.animate-words-badge-loop span:nth-child(5) { animation-delay: 2.4s; }
+

@@ -1,115 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Code2, Smartphone, ShoppingCart, Settings, ArrowRight, ArrowUpRight, Sparkles, Zap, ShieldCheck } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 import TiltCard from '../../components/ui/TiltCard.jsx';
 import MagneticButton from '../../components/ui/MagneticButton.jsx';
-import { useMotionPrefs } from '../../hooks/useMotionPrefs.js';
 
-/* ---------- Hero floating service cards ---------- */
-/* Each card is hand-placed for a deliberate, non-colliding composition.
-   `pos` values are % offsets within the stage; depth drives parallax + z. */
-const heroCards = [
-    { icon: Code2, label: 'Web', sub: 'Sites & apps', tint: 'from-signal to-violet', pos: { top: '4%', left: '2%' }, rot: -6, depth: 2, float: 'float-card' },
-    { icon: Smartphone, label: 'Mobile', sub: 'iOS & Android', tint: 'from-teal to-signal', pos: { top: '14%', right: '0%' }, rot: 7, depth: 1, float: 'float-card-slow' },
-    { icon: ShoppingCart, label: 'E-Commerce', sub: 'Online stores', tint: 'from-violet to-teal', pos: { bottom: '6%', left: '0%' }, rot: 5, depth: 1, float: 'float-card-slower' },
-];
-
-function HeroStage() {
-    const { canHover, reduced } = useMotionPrefs();
-    const enabled = canHover && !reduced;
-    const stageRef = useRef(null);
-    const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-    const onMove = (e) => {
-        if (!enabled || !stageRef.current) return;
-        const r = stageRef.current.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        setTilt({ x: px, y: py });
-    };
-    const reset = () => setTilt({ x: 0, y: 0 });
-
-    return (
-        <div
-            ref={stageRef}
-            onMouseMove={onMove}
-            onMouseLeave={reset}
-            className="relative w-full h-[440px] sm:h-[480px] lg:h-[520px] max-w-md mx-auto lg:mx-0 lg:ml-auto"
-            style={{ perspective: '1400px' }}
-        >
-            {/* glow core */}
-            <div
-                className="absolute left-1/2 top-1/2 w-72 h-72 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
-                style={{ background: 'radial-gradient(circle, rgba(139,123,247,0.4), transparent 65%)' }}
-            />
-
-            {/* soft ring behind the focal card */}
-            <div
-                className="absolute left-1/2 top-1/2 w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 spin-slow"
-                style={{ maskImage: 'linear-gradient(120deg, #000, transparent 70%)', WebkitMaskImage: 'linear-gradient(120deg, #000, transparent 70%)' }}
-            />
-
-            {/* Focal dashboard card — centered, sits at the back of the depth stack */}
-            <div
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 float-card-slow w-[240px] sm:w-[268px]"
-                style={{
-                    transform: `translate(-50%,-50%) rotateY(${tilt.x * 12}deg) rotateX(${-tilt.y * 12}deg)`,
-                    transformStyle: 'preserve-3d',
-                    transition: enabled ? 'transform 0.25s ease-out' : 'none',
-                }}
-            >
-                <div className="glass-dark rounded-2xl p-5 shadow-2xl">
-                    <div className="flex items-center justify-between mb-4">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-teal">Live build</span>
-                        <span className="flex gap-1">
-                            <i className="w-2 h-2 rounded-full bg-[#FF5F57] inline-block" />
-                            <i className="w-2 h-2 rounded-full bg-[#FEBC2E] inline-block" />
-                            <i className="w-2 h-2 rounded-full bg-[#28C840] inline-block" />
-                        </span>
-                    </div>
-                    <div className="font-mono text-xs leading-relaxed">
-                        <div className="text-violet">const <span className="text-white">product</span> = ship({'{'}</div>
-                        <div className="pl-4 text-white/70">quality: <span className="text-teal">'high'</span>,</div>
-                        <div className="pl-4 text-white/70">speed: <span className="text-teal">'fast'</span>,</div>
-                        <div className="text-violet">{'}'});</div>
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
-                        <span className="font-mono text-[10px] text-white/50">deployed — 0 errors</span>
-                    </div>
-                </div>
-            </div>
-
-            {/* Fanned service cards — hand-placed, never overlapping the focal card badly */}
-            {heroCards.map((c) => {
-                const Icon = c.icon;
-                const p = c.depth * 8;
-                return (
-                    <div
-                        key={c.label}
-                        className={`absolute ${c.float}`}
-                        style={{
-                            ...c.pos,
-                            transform: `rotate(${c.rot}deg) rotateY(${tilt.x * p}deg) rotateX(${-tilt.y * p}deg) translateZ(${c.depth * 30}px)`,
-                            transformStyle: 'preserve-3d',
-                            transition: enabled ? 'transform 0.3s ease-out' : 'none',
-                        }}
-                    >
-                        <div className={`rounded-2xl p-3.5 shadow-2xl bg-gradient-to-br ${c.tint} w-[128px] sm:w-[140px] backdrop-blur`}>
-                            <div className="w-9 h-9 rounded-lg bg-white/25 flex items-center justify-center mb-2.5">
-                                <Icon size={18} className="text-white" />
-                            </div>
-                            <div className="font-display text-sm font-bold text-white leading-tight">{c.label}</div>
-                            <div className="font-mono text-[9px] uppercase tracking-wide text-white/70 mt-0.5">{c.sub}</div>
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-    );
-}
+import { Hero } from '../../components/sections/Hero';
 
 /* ---------- Static content ---------- */
 const pillars = [
@@ -152,68 +49,7 @@ export default function Home() {
 
     return (
         <div className="overflow-hidden">
-            {/* ============ HERO ============ */}
-            <section className="relative min-h-[92vh] flex items-center bg-void text-paper pt-24 pb-16">
-                {/* background layers */}
-                <div className="mesh-bg">
-                    <div className="grid-overlay-dark absolute inset-0" />
-                    <div className="aurora absolute w-[55vw] h-[55vw] rounded-full blur-3xl -top-40 -left-20"
-                         style={{ background: 'radial-gradient(circle, rgba(91,95,239,0.28), transparent 60%)' }} />
-                    <div className="aurora absolute w-[45vw] h-[45vw] rounded-full blur-3xl bottom-0 right-0"
-                         style={{ background: 'radial-gradient(circle, rgba(0,168,150,0.22), transparent 60%)', animationDelay: '-9s' }} />
-                    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void to-transparent" />
-                </div>
-
-                <div className="relative max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
-                    <div style={{ animation: 'fadeInUp 0.8s ease' }}>
-                        <span className="inline-flex items-center gap-2 glass-dark rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-widest text-white/70">
-                            <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
-                            Software & Web Development Studio
-                        </span>
-                        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mt-6 leading-[1.05]">
-                            We turn ideas into <span className="text-gradient">software that ships.</span>
-                        </h1>
-                        <p className="text-white/60 mt-6 text-lg max-w-md leading-relaxed">
-                            Akclnt builds websites, apps, and business systems for companies that need
-                            something that actually works — not just looks good in a pitch.
-                        </p>
-                        <div className="flex flex-wrap gap-4 mt-9">
-                            <MagneticButton
-                                to="/contact"
-                                className="group inline-flex items-center gap-2 bg-white text-ink px-6 py-3.5 rounded-full font-medium hover:bg-signal hover:text-white transition-colors"
-                            >
-                                Start a Project
-                                <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                            </MagneticButton>
-                            <Link
-                                to="/portfolio"
-                                className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3.5 rounded-full font-medium hover:border-white/60 transition-colors"
-                            >
-                                See our work
-                            </Link>
-                        </div>
-
-                        {/* trust row */}
-                        <div className="flex items-center gap-6 mt-10">
-                            <div className="flex -space-x-2">
-                                {['K', 'J', 'M', 'L'].map((c, i) => (
-                                    <span key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-signal to-teal flex items-center justify-center text-xs font-semibold text-white border-2 border-void">
-                                        {c}
-                                    </span>
-                                ))}
-                            </div>
-                            <p className="font-mono text-xs text-white/50 leading-relaxed">
-                                Trusted by retail, real-estate,<br className="hidden sm:block" /> and training businesses.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* 3D stage */}
-                    <div style={{ animation: 'fadeInUp 0.8s ease 0.2s backwards' }}>
-                        <HeroStage />
-                    </div>
-                </div>
-            </section>
+            <Hero />
 
             {/* ============ TECH MARQUEE ============ */}
             <section className="bg-ink border-y border-white/10 py-5 overflow-hidden">
@@ -269,7 +105,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ============ SERVICES (live from DB) ============ */}
+            {/* ============ SERVICES ============ */}
             {services.length > 0 && (
                 <section className="relative bg-void text-paper py-24 overflow-hidden">
                     <div className="grid-overlay-dark absolute inset-0 opacity-60" />
@@ -372,7 +208,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ============ PORTFOLIO STRIP ============ */}
+            {/* ============ PORTFOLIO ============ */}
             <section className="bg-ink py-24">
                 <div className="max-w-6xl mx-auto px-6">
                     <Reveal>
