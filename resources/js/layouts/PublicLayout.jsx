@@ -3,7 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar.jsx';
 import Footer from '../components/layout/Footer.jsx';
 import Loader from '../components/ui/Loader.jsx';
-
+import WhatsAppButton from '../components/ui/WhatsAppButton.jsx';
+import ChatBot from '../components/ui/ChatBot.jsx';
 export default function PublicLayout() {
     const location = useLocation();
 
@@ -20,6 +21,10 @@ export default function PublicLayout() {
                 <Outlet />
             </main>
             <Footer />
+                        
+            <WhatsAppButton />
+              <ChatBot />
         </div>
+       
     );
 }

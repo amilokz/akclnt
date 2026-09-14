@@ -3,43 +3,122 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 import TiltCard from '../../components/ui/TiltCard.jsx';
+import imgQuotex from '../../assets/projects/aibot_pradition.jpg.jpg';
+import imgLocalMarket from '../../assets/projects/localemarket_website.jpg.jpg';
+import imgMyApp from '../../assets/projects/blogpost_website.jpg.jpg';
+import imgSmartServe from '../../assets/projects/smart_services_website.jpg.jpg';
+import imgFlexiPDF from '../../assets/projects/flexipdf.jpg.jpg';
+import imgAutomation from '../../assets/projects/n8nautomation2.jpg.jpg';
+import imgEzitech from '../../assets/projects/ezitech.jpg.jpg';
+import imgSellHive from '../../assets/projects/sellhive.jpg.jpg';
+import imgSuperPdf from '../../assets/projects/superpdf.png';
+import imgEziDownload from '../../assets/projects/ezidownload.png';
+import imgQissa from '../../assets/projects/qissa.jpg';
+import imgMedflow from '../../assets/projects/medflow.jpg';
+import imgAyyanPortfolio from '../../assets/projects/portfolio-ayan.jpg';
 
 const projects = [
+  
     {
         id: 1,
-        title: 'Retail Inventory & POS System',
-        category: 'Software Development',
-        description: 'A point-of-sale and inventory management system built for a retail business, with barcode scanning, tiered pricing, and invoice generation.',
-        tags: ['Laravel', 'React', 'MySQL'],
-        tint: 'from-signal to-violet',
+        title: 'Intern Management Platform',
+        category: 'Company',
+        image: imgEzitech,
+        description: 'An internal platform to manage interns, track progress, assign tasks, and issue certificates — used daily by a growing training institute.',
+        tags: ['Laravel', 'React', 'Cloudinary'],
     },
     {
         id: 2,
-        title: 'Intern Management Platform',
-        category: 'Web Development',
-        description: 'An internal platform to manage interns, track progress, assign tasks, and issue certificates — used daily by a growing training institute.',
-        tags: ['Laravel', 'React', 'Cloudinary'],
-        tint: 'from-teal to-signal',
+        title: 'SellHive — Amazon Management',
+        category: 'Client',
+        image: imgSellHive,
+        description: 'A marketing site for a founder-led Amazon management service, with a free-audit lead flow and performance highlights.',
+        tags: ['React', 'Vite', 'Landing Page'],
     },
     {
         id: 3,
-        title: 'Accounting Management System',
-        category: 'Software Development',
-        description: 'A multi-module accounting and real estate management system with cash flow reporting and map-based property tracking.',
-        tags: ['Laravel', 'Leaflet.js', 'MySQL'],
-        tint: 'from-violet to-teal',
+        title: 'SmartServe — Services Booking',
+        category: 'Client',
+        image: imgSmartServe,
+        description: 'A platform to book verified professionals for home and business services, with a bookings dashboard and sign-up flow.',
+        tags: ['React', 'Laravel', 'Bookings'],
     },
     {
         id: 4,
-        title: 'Company Marketing Website',
-        category: 'Web Development',
-        description: 'A performance-optimized marketing site with smooth animations, converted from static HTML to a fully dynamic React SPA.',
-        tags: ['React', 'GSAP', 'Vite'],
-        tint: 'from-signal to-teal',
+        title: 'Local E-Market',
+        category: 'Client',
+        image: imgLocalMarket,
+        description: 'An e-commerce storefront with product catalog, cart, deals, and wishlist for a local marketplace.',
+        tags: ['React', 'E-Commerce', 'Tailwind'],
     },
+    {
+        id: 5,
+        title: 'FlexiPDF — PDF Tools',
+        category: 'Personal',
+        image: imgFlexiPDF,
+        description: 'A PDF toolkit to convert and manage files — PDF↔Word, PDF to image, image to PDF — plus a built-in chatbot.',
+        tags: ['Python', 'Flask', 'PDF'],
+    },
+    {
+        id: 6,
+        title: 'MyApp — Web Platform',
+        category: 'Personal',
+        image: imgMyApp,
+        description: 'A full-stack web app with dashboard, chatbot, post uploads, and authentication — built as an all-in-one starter platform.',
+        tags: ['React', 'Node.js', 'Auth'],
+    },
+    {
+        id: 7,
+        title: 'Quotex AI Predictor Bot',
+        category: 'client',
+        image: imgQuotex,
+        description: 'A Telegram bot that analyses market data and generates trading signals in real time, with asset and timeframe selection.',
+        tags: ['Python', 'Telegram API', 'Automation'],
+    },
+    {
+        id: 8,
+        title: 'Auto LinkedIn Posting Workflow',
+        category: 'client',
+        image: imgAutomation,
+        description: 'An n8n automation that pulls a daily post from a database and publishes it to LinkedIn on a schedule via HTTP requests.',
+        tags: ['n8n', 'Automation', 'API'],
+    },
+        {
+        id: 9,
+        title: 'Super PDF — Mobile App',
+        category: 'Company',
+        image: imgSuperPdf,
+        description: 'A Flutter PDF toolkit with merge, split, compress, OCR scanning, AI summarisation, format conversion, and digital signatures — backed by a Laravel API on cPanel.',
+        tags: ['Flutter', 'Laravel', 'OCR'],
+    },
+    {
+        id: 10,
+        title: 'EziDownload — Media Downloader',
+        category: 'Company',
+        image: imgEziDownload,
+        description: 'A multi-platform media downloader for TikTok, YouTube, Instagram, and Facebook, built in Flutter with a Laravel backend on VPS using yt-dlp and FFmpeg.',
+        tags: ['Flutter', 'Laravel', 'FFmpeg'],
+    },
+     {
+        id: 11,
+        title: 'QISSA — E-Commerce Platform',
+        category: 'Personal',
+        image: imgQissa,
+        description: 'A full-stack ethnic fashion store with authentication, product management, cart and wishlist, Stripe checkout, admin panel, and AI-powered outfit recommendations.',
+        tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    },
+    {
+        id: 12,
+        title: 'MEDFLOW — B2B Pharma Platform',
+        category: 'Personal',
+        image: imgMedflow,
+        description: 'A B2B pharmaceutical marketplace connecting buyers, suppliers, and admins with role-based access, quotation requests, and an AI chatbot for orders and shipping.',
+        tags: ['React', 'PostgreSQL', 'TypeORM', 'AI'],
+    },
+  
 ];
 
-const categories = ['All', 'Web Development', 'Software Development'];
+const categories = ['All', 'Company', 'Client', 'Personal'];
 
 export default function Portfolio() {
     const [filter, setFilter] = useState('All');
@@ -47,22 +126,55 @@ export default function Portfolio() {
 
     return (
         <div className="overflow-hidden">
-            {/* Header */}
-            <section className="relative bg-void text-paper pt-36 pb-24 overflow-hidden">
+                      {/* Header */}
+            <section className="relative bg-void text-paper pt-36 pb-28 overflow-hidden">
                 <div className="mesh-bg">
-                    <div className="grid-overlay-dark absolute inset-0" />
+                    <div className="grid-overlay-dark absolute inset-0 opacity-60" />
                     <div className="aurora absolute w-[45vw] h-[45vw] rounded-full blur-3xl top-0 -left-10"
                          style={{ background: 'radial-gradient(circle, rgba(0,168,150,0.22), transparent 60%)' }} />
+                    <div className="aurora absolute w-[40vw] h-[40vw] rounded-full blur-3xl top-10 right-0"
+                         style={{ background: 'radial-gradient(circle, rgba(91,95,239,0.20), transparent 60%)' }} />
                 </div>
+
                 <div className="relative max-w-6xl mx-auto px-6">
                     <Reveal>
-                        <span className="font-mono text-xs uppercase tracking-wider text-teal">Our work</span>
-                        <h1 className="font-display text-4xl md:text-6xl font-bold mt-4 max-w-2xl leading-[1.05]">
-                            A few things we've <span className="text-gradient">shipped.</span>
+                        {/* eyebrow badge */}
+                        <div className="inline-flex items-center gap-2.5 rounded-full pl-2.5 pr-4 py-1.5 mb-7"
+                             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full rounded-full bg-teal opacity-75 animate-ping" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal" />
+                            </span>
+                            <span className="font-mono text-[0.68rem] font-semibold tracking-[0.22em] text-white/70 uppercase">
+                                Our work
+                            </span>
+                        </div>
+
+                        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold max-w-3xl leading-[1.03] tracking-[-0.02em]">
+                            A few things<br />we've <span className="text-gradient">shipped.</span>
                         </h1>
-                        <p className="text-white/55 mt-6 max-w-lg text-lg leading-relaxed">
-                            Real projects, built for real businesses. Here's a sample of the kind of work we do.
+
+                        <p className="text-white/55 mt-6 max-w-xl text-lg leading-relaxed">
+                            Real projects, built for real businesses — company platforms,
+                            client websites, and tools we've shipped end to end.
                         </p>
+
+                        {/* mini stats */}
+                        <div className="mt-10 flex flex-wrap items-center gap-6">
+                            {[
+                                { value: '60+', label: 'Projects' },
+                                { value: '3', label: 'Categories' },
+                                { value: '24h', label: 'Response' },
+                            ].map((s, i) => (
+                                <div key={s.label} className="flex items-center gap-6">
+                                    {i > 0 && <span className="h-8 w-px bg-white/10" />}
+                                    <div>
+                                        <div className="font-display text-2xl font-bold text-white leading-none">{s.value}</div>
+                                        <div className="mt-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-white/45">{s.label}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </Reveal>
                 </div>
             </section>
@@ -93,14 +205,14 @@ export default function Portfolio() {
                             <TiltCard max={7} className="h-full">
                                 <div className="group relative h-full flex flex-col bg-white border border-mist rounded-2xl overflow-hidden hover:border-signal transition-colors">
                                     {/* preview banner */}
-                                    <div className="relative h-40 overflow-hidden">
-                                        <div className={`absolute inset-0 bg-gradient-to-br ${project.tint} opacity-90`} />
-                                        <div className="grid-overlay-dark absolute inset-0 opacity-40" />
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <span className="font-display text-6xl font-bold text-white/15 group-hover:scale-110 transition-transform duration-500">
-                                                0{project.id}
-                                            </span>
-                                        </div>
+                                                                     <div className="relative h-48 overflow-hidden bg-ink">
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            loading="lazy"
+                                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
                                         <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-wider text-white glass-dark px-2.5 py-1 rounded-full">
                                             {project.category}
                                         </span>

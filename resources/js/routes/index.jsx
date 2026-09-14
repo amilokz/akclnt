@@ -15,6 +15,10 @@ import Dashboard from '../pages/admin/Dashboard.jsx';
 import ClientDashboard from '../pages/client/ClientDashboard.jsx';
 import ProtectedRoute from '../components/ProtectedRoute.jsx';
 import Projects from '../pages/admin/Projects.jsx';
+import Privacy from '../pages/public/Privacy.jsx';
+import Terms from '../pages/public/Terms.jsx';
+import AdminLayout from '../layouts/AdminLayout.jsx';
+import Leads from '../pages/admin/Leads.jsx';
 
 export default function AppRoutes() {
     return (
@@ -29,25 +33,22 @@ export default function AppRoutes() {
                 <Route path="/testimonials" element={<Testimonials />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
             </Route>
 
             <Route path="/admin/login" element={<Login />} />
-            <Route
-                path="/admin/dashboard"
+                      <Route
                 element={
                     <ProtectedRoute allowedRoles={['admin', 'team']}>
-                        <Dashboard />
+                        <AdminLayout />
                     </ProtectedRoute>
                 }
-            />
-            <Route
-                path="/admin/projects"
-                element={
-                    <ProtectedRoute allowedRoles={['admin', 'team']}>
-                        <Projects />
-                    </ProtectedRoute>
-                }
-            />
+            >
+                <Route path="/admin/dashboard" element={<Dashboard />} />
+                <Route path="/admin/leads" element={<Leads />} />
+                <Route path="/admin/projects" element={<Projects />} />
+            </Route>
             <Route
                 path="/client/dashboard"
                 element={

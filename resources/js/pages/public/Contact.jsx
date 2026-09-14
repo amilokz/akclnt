@@ -104,7 +104,7 @@ export default function Contact() {
 
                     <div className="mt-10 space-y-5">
                         {[
-                            { icon: Mail, label: 'Email', value: 'hello@akclnt.com' },
+                            { icon: Mail, label: 'Email', value: 'info@akclnt.com' },
                             { icon: MapPin, label: 'Location', value: 'Rawalpindi, Pakistan' },
                             { icon: Clock, label: 'Response time', value: 'Within 24 hours' },
                         ].map((item) => {

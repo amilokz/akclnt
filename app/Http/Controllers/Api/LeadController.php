@@ -24,7 +24,13 @@ class LeadController extends Controller
             'message' => 'required|string',
         ]);
 
-        $lead = Lead::create($validated);
+               $lead = Lead::create($validated);
+
+        try {
+            Mail::to(config('mail.admin_address'))->send(new \App\Mail\NewLeadMail($lead->load('service')));
+        } catch (\Throwable $e) {
+            report($e); // email fail ho to bhi lead save rahe
+        }
 
         return response()->json([
             'message' => 'Inquiry submitted successfully',
