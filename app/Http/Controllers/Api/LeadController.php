@@ -26,11 +26,15 @@ class LeadController extends Controller
 
                $lead = Lead::create($validated);
 
-        try {
-            Mail::to(config('mail.admin_address'))->send(new \App\Mail\NewLeadMail($lead->load('service')));
-        } catch (\Throwable $e) {
-            report($e); // email fail ho to bhi lead save rahe
-        }
+           // Email response ke baad bheji jaati hai - user wait nahi karta
+        $lead->load('service');
+        app()->terminating(function () use ($lead) {
+            try {
+                Mail::to(config('mail.admin_address'))->send(new \App\Mail\NewLeadMail($lead));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        });
 
         return response()->json([
             'message' => 'Inquiry submitted successfully',
