@@ -91,6 +91,8 @@ class ServiceSeeder extends Seeder
                 ],
             ],
 
+            
+
             // ================= AI & AUTOMATION =================
             [
                 'category' => 'AI & Automation',

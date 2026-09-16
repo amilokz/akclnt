@@ -52,7 +52,7 @@ const developers = [
     },
     {
         name: 'Laiba Amjad',
-        role: 'Flutter Developer & Technical Instructor',
+        role: 'Flutter Developer & Full-Stack Developer',
         focus: 'Cross-platform mobile development with Flutter and Dart, Laravel backends and REST APIs, plus deployment on cPanel, VPS, and Firebase — including full Google Play Console management.',
         skills: ['Flutter', 'Dart', 'Laravel', 'Firebase'],
         image: laibaImg,

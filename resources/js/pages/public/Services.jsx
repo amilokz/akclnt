@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
     ChevronDown, ArrowUpRight, Phone, Code2, Bot, Megaphone, Server,
-    Magnet, Lightbulb, Package, Calculator, Palette, Sparkles, Star
+    Magnet, Lightbulb, Package, Calculator, Palette, Sparkles, Star, Smartphone
 } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 
@@ -20,6 +20,7 @@ import designMain from '../../assets/services/design-main.jpg';
 import fwRealEstate from '../../assets/services/fw-realestate.jpg';
 import fwSellhive from '../../assets/projects/sellhive.jpg.jpg';
 import fwEzitech from '../../assets/projects/ezitech.jpg.jpg';
+import mobileMain from '../../assets/services/mobile-main.jpeg';
 
 const categoryImages = {
     'Web Development':    { main: webMain,        sub: null },
@@ -31,6 +32,7 @@ const categoryImages = {
     'Digital Products':  { main: productsMain,   sub: null },
     'Accounting':        { main: accountingMain, sub: null },
     'Design':            { main: designMain,     sub: null },
+    'Mobile Development': { main: mobileMain,   sub: null },
 };
 
 // Category order + icon + blurb (real SVG icons)
@@ -44,6 +46,8 @@ const categoryMeta = {
     'Digital Products': { icon: Package,    blurb: 'Ready-made templates and boilerplates to move faster.' },
     'Accounting':       { icon: Calculator, blurb: 'Accurate Amazon accounting, reporting, and profit tracking.' },
     'Design':           { icon: Palette,    blurb: 'Branding and visuals that make your business memorable.' },
+    'Mobile Development': { icon: Smartphone, blurb: 'Cross-platform apps for Android and iOS, built with Flutter and published for you.' },
+   
 };
 const categoryOrder = Object.keys(categoryMeta);
 

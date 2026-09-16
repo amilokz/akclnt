@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /client
+Disallow: /api
+
+Sitemap: https://akclnt.com/sitemap.xml

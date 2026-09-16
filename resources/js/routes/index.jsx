@@ -19,6 +19,12 @@ import Privacy from '../pages/public/Privacy.jsx';
 import Terms from '../pages/public/Terms.jsx';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 import Leads from '../pages/admin/Leads.jsx';
+import Analytics from '../pages/admin/Analytics.jsx';
+import Blog from '../pages/public/Blog.jsx';
+import BlogPost from '../pages/public/BlogPost.jsx';
+import AdminPosts from '../pages/admin/AdminPosts.jsx';
+import Products from '../pages/public/Products.jsx';
+import AdminProducts from '../pages/admin/AdminProducts.jsx';
 
 export default function AppRoutes() {
     return (
@@ -35,6 +41,9 @@ export default function AppRoutes() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/products" element={<Products />} />
             </Route>
 
             <Route path="/admin/login" element={<Login />} />
@@ -48,6 +57,9 @@ export default function AppRoutes() {
                 <Route path="/admin/dashboard" element={<Dashboard />} />
                 <Route path="/admin/leads" element={<Leads />} />
                 <Route path="/admin/projects" element={<Projects />} />
+                <Route path="/admin/analytics" element={<Analytics />} />
+                <Route path="/admin/posts" element={<AdminPosts />} />
+                <Route path="/admin/products" element={<AdminProducts />} />
             </Route>
             <Route
                 path="/client/dashboard"

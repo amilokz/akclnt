@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, X, Play } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 import TiltCard from '../../components/ui/TiltCard.jsx';
 import imgQuotex from '../../assets/projects/aibot_pradition.jpg.jpg';
@@ -16,6 +16,11 @@ import imgEziDownload from '../../assets/projects/ezidownload.png';
 import imgQissa from '../../assets/projects/qissa.jpg';
 import imgMedflow from '../../assets/projects/medflow.jpg';
 import imgAyyanPortfolio from '../../assets/projects/portfolio-ayan.jpg';
+import imgIportal from '../../assets/projects/iportal.jpg';
+
+
+
+  
 
 const projects = [
   
@@ -54,7 +59,7 @@ const projects = [
     {
         id: 5,
         title: 'FlexiPDF — PDF Tools',
-        category: 'Personal',
+        category: 'Client',
         image: imgFlexiPDF,
         description: 'A PDF toolkit to convert and manage files — PDF↔Word, PDF to image, image to PDF — plus a built-in chatbot.',
         tags: ['Python', 'Flask', 'PDF'],
@@ -88,6 +93,7 @@ const projects = [
         title: 'Super PDF — Mobile App',
         category: 'Company',
         image: imgSuperPdf,
+        video: '/videos/superpdf.mp4',
         description: 'A Flutter PDF toolkit with merge, split, compress, OCR scanning, AI summarisation, format conversion, and digital signatures — backed by a Laravel API on cPanel.',
         tags: ['Flutter', 'Laravel', 'OCR'],
     },
@@ -96,6 +102,7 @@ const projects = [
         title: 'EziDownload — Media Downloader',
         category: 'Company',
         image: imgEziDownload,
+                video: '/videos/ezidownload.mp4',
         description: 'A multi-platform media downloader for TikTok, YouTube, Instagram, and Facebook, built in Flutter with a Laravel backend on VPS using yt-dlp and FFmpeg.',
         tags: ['Flutter', 'Laravel', 'FFmpeg'],
     },
@@ -115,13 +122,30 @@ const projects = [
         description: 'A B2B pharmaceutical marketplace connecting buyers, suppliers, and admins with role-based access, quotation requests, and an AI chatbot for orders and shipping.',
         tags: ['React', 'PostgreSQL', 'TypeORM', 'AI'],
     },
+        {
+        id: 13,
+        title: 'iPortal — Intern Management App',
+        category: 'Client',
+        image: imgIportal,
+        video: 'https://youtu.be/fn4UtHeZmEU',
+        description: 'A Flutter enterprise app that replaced scattered manual intern workflows with one hub — role-based dashboards for admins, managers, and interns, live REST API sync, automated task assignment, announcements, progress tracking, and certificate generation.',
+        tags: ['Flutter', 'REST API', 'Multi-role'],
+    },
   
 ];
-
+ 
 const categories = ['All', 'Company', 'Client', 'Personal'];
 
 export default function Portfolio() {
     const [filter, setFilter] = useState('All');
+      
+  const [activeVideo, setActiveVideo] = useState(null);
+
+    const toEmbed = (url) => {
+        if (!url) return null;
+        const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
+        return m ? `https://www.youtube.com/embed/${m[1]}?autoplay=1&rel=0` : null;
+    };
     const visible = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
 
     return (
@@ -162,7 +186,7 @@ export default function Portfolio() {
                         {/* mini stats */}
                         <div className="mt-10 flex flex-wrap items-center gap-6">
                             {[
-                                { value: '60+', label: 'Projects' },
+                                { value: '100+', label: 'Projects' },
                                 { value: '3', label: 'Categories' },
                                 { value: '24h', label: 'Response' },
                             ].map((s, i) => (
@@ -205,7 +229,7 @@ export default function Portfolio() {
                             <TiltCard max={7} className="h-full">
                                 <div className="group relative h-full flex flex-col bg-white border border-mist rounded-2xl overflow-hidden hover:border-signal transition-colors">
                                     {/* preview banner */}
-                                                                     <div className="relative h-48 overflow-hidden bg-ink">
+                                                                      <div className="relative h-48 overflow-hidden bg-ink">
                                         <img
                                             src={project.image}
                                             alt={project.title}
@@ -213,9 +237,29 @@ export default function Portfolio() {
                                             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+
+                                        {project.video && (
+                                            <button
+                                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveVideo(project); }}
+                                                aria-label={`Play ${project.title} demo`}
+                                                className="absolute inset-0 flex items-center justify-center group/play"
+                                            >
+                                                <span className="w-14 h-14 rounded-full flex items-center justify-center transition-transform duration-300 group-hover/play:scale-110"
+                                                      style={{ background: 'rgba(255,255,255,0.92)', boxShadow: '0 8px 24px -6px rgba(0,0,0,0.5)' }}>
+                                                    <Play size={20} className="text-ink ml-0.5" fill="currentColor" />
+                                                </span>
+                                            </button>
+                                        )}
+
                                         <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-wider text-white glass-dark px-2.5 py-1 rounded-full">
                                             {project.category}
                                         </span>
+
+                                        {project.video && (
+                                            <span className="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-wider text-white glass-dark px-2.5 py-1 rounded-full">
+                                                Demo
+                                            </span>
+                                        )}
                                     </div>
                                     <div className="p-7 flex flex-col flex-1">
                                         <h2 className="font-display text-xl font-semibold text-ink mb-3">{project.title}</h2>
@@ -250,6 +294,48 @@ export default function Portfolio() {
                     </div>
                 </Reveal>
             </section>
+                        {/* ===== VIDEO MODAL ===== */}
+            {activeVideo && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                     style={{ background: 'rgba(0,0,0,0.85)' }}
+                     onClick={() => setActiveVideo(null)}>
+                    <button
+                        onClick={() => setActiveVideo(null)}
+                        aria-label="Close video"
+                        className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white transition-colors"
+                        style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}
+                    >
+                        <X size={20} />
+                    </button>
+
+                    <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+                        <div className="rounded-2xl overflow-hidden" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                            {toEmbed(activeVideo.video) ? (
+                                <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                                    <iframe
+                                        src={toEmbed(activeVideo.video)}
+                                        title={activeVideo.title}
+                                        className="absolute inset-0 w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </div>
+                            ) : (
+                                <video
+                                    src={activeVideo.video}
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                    className="w-full max-h-[75vh] bg-black"
+                                />
+                            )}
+                        </div>
+                        <p className="text-white font-display text-lg font-semibold mt-4 text-center">
+                            {activeVideo.title}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -4,7 +4,7 @@ import { ArrowUpRight, Sparkles, Target, Eye } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 
 const stats = [
-    { value: '60+', label: 'Projects shipped' },
+    { value: '100+', label: 'Projects shipped' },
     { value: '50+', label: 'Happy clients' },
     { value: '8',   label: 'People on the team' },
     { value: '24h', label: 'Avg. response time' },

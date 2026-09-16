@@ -8,9 +8,7 @@ const stats = [
   { value: "24h", label: "Avg. Response" },
 ];
 
-// Companies. To use logos: import the image and set `logo`.
-// e.g. import ezitechLogo from '../../assets/clients/ezitech.png';
-// then: { name: 'Ezitech', logo: ezitechLogo }
+
 const clients = [
   { name: "Ezitech", logo: null },
   { name: "SellHive", logo: null },
@@ -187,13 +185,13 @@ export function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="mt-7 text-[2.6rem] leading-[1.04] font-extrabold tracking-[-0.03em] text-balance sm:text-5xl lg:text-[3.7rem] text-white animate-words">
-            <span>We</span>
-            <span>turn</span>
-            <span>ideas</span>
-            <span>into</span>
-            <span className="text-gradient">software</span>
-            <span>that</span>
+                  <h1 className="mt-7 text-[2.6rem] leading-[1.04] font-extrabold tracking-[-0.03em] text-balance sm:text-5xl lg:text-[3.7rem] text-white animate-words">
+            <span className="mr-[0.20em]">We</span>
+            <span className="mr-[0.20em]">turn</span>
+            <span className="mr-[0.20em]">ideas</span>
+            <span className="mr-[0.20em]">into</span>
+            <span className="mr-[0.20em] text-gradient">software</span>
+            <span className="mr-[0.20em]">that</span>
             <span className="text-gradient">ships.</span>
           </h1>
 
