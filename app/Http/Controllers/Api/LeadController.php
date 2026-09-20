@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ClientProfile;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class LeadController extends Controller
 {
@@ -36,6 +37,26 @@ class LeadController extends Controller
             }
         });
 
+                // n8n automation trigger — non-blocking
+        if ($url = config('services.n8n.lead_webhook')) {
+            app()->terminating(function () use ($lead, $url) {
+                try {
+                    Http::timeout(10)->post($url, [
+                        'id'         => $lead->id,
+                        'name'       => $lead->name,
+                        'email'      => $lead->email,
+                        'phone'      => $lead->phone,
+                        'budget'     => $lead->budget,
+                        'message'    => $lead->message,
+                        'service'    => $lead->service->name ?? null,
+                        'created_at' => $lead->created_at->toIso8601String(),
+                    ]);
+                } catch (\Throwable $e) {
+                    report($e);
+                }
+            });
+        }
+        
         return response()->json([
             'message' => 'Inquiry submitted successfully',
             'lead' => $lead,
