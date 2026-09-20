@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Quote } from 'lucide-react';
@@ -12,6 +13,8 @@ const testimonials = [
 
 export default function Testimonials() {
     return (
+        <>
+        <Seo path="/testimonials" title="Client Testimonials & Reviews | AKCLNT" description="Read what AKCLNT's clients say about our web development, automation, and marketing work." />
         <div className="overflow-hidden">
             {/* Header */}
             <section className="relative bg-void text-paper pt-36 pb-24 overflow-hidden">
@@ -66,5 +69,7 @@ export default function Testimonials() {
                 </Reveal>
             </section>
         </div>
+                </>
+
     );
 }

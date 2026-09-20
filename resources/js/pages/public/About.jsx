@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Sparkles, Target, Eye } from 'lucide-react';
@@ -43,6 +44,8 @@ const whyUs = [
 
 export default function About() {
     return (
+        <>
+        <Seo path="/about" title="About AKCLNT — Software Studio in Pakistan" description="Meet AKCLNT — a founder-led software studio in Pakistan building websites, apps, and AI automation for businesses locally and worldwide." />
         <div className="overflow-hidden">
 
             {/* ===== HERO ===== */}
@@ -294,5 +297,7 @@ export default function About() {
                 </Reveal>
             </section>
         </div>
+                </>
+
     );
 }

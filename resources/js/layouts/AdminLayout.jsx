@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import {
-    LayoutDashboard, Users, FolderKanban, Package, LogOut, BarChart3 ,FileText, Menu, X, ExternalLink
+        LayoutDashboard, Users, FolderKanban, Package, LogOut, BarChart3 ,FileText, Menu, X, ExternalLink, LayoutGrid
 } from 'lucide-react';
 
 const nav = [
@@ -12,6 +12,7 @@ const nav = [
     { to: '/admin/analytics', label: 'Analytics', Icon: BarChart3 },
     { to: '/admin/posts', label: 'Blog', Icon: FileText },
     { to: '/admin/products', label: 'Products', Icon: Package },
+        { to: '/admin/portfolio', label: 'Portfolio', Icon: LayoutGrid },
 ];
 
 export default function AdminLayout() {

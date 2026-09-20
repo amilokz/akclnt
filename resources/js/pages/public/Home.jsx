@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +12,7 @@ import ctaShape2 from "../../assets/ns-img-505.png";
 import { Founders } from '../../components/sections/Founders';
 import CountUp from '../../components/ui/CountUp.jsx';
 import { Users, Layers, Clock, Code2 as CodeIcon } from 'lucide-react';
+
 
 const pillars = [
     { icon: Code2, title: 'Web Development', desc: 'Custom sites and web apps that load fast and turn visitors into customers.' },
@@ -51,6 +53,8 @@ export default function Home() {
     }, []);
 
     return (
+         <>
+        <Seo path="/" title="AKCLNT — Web Development, AI Automation & Digital Marketing in Pakistan" description="AKCLNT is a Pakistan-based software studio offering web development, AI automation, digital marketing, and hosting for businesses at home and worldwide. Get a free consultation." />
         <div className="overflow-hidden">
             <Hero />
 
@@ -515,5 +519,6 @@ export default function Home() {
                 </div>
             </section>
         </div>
+           </>
     );
 }

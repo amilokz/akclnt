@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -45,6 +46,12 @@ export default function ServiceDetail() {
     }
 
     return (
+          <>
+            <Seo
+            path={`/services/${id}`}
+            title={`${service.name} in Pakistan | AKCLNT`}
+            description={service.description}
+        />
         <div className="overflow-hidden">
             {/* Hero header */}
             <section className="relative bg-void text-paper pt-36 pb-20 overflow-hidden">
@@ -104,5 +111,6 @@ export default function ServiceDetail() {
                 </Reveal>
             </section>
         </div>
+        </>
     );
 }

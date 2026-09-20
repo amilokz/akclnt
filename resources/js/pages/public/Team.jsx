@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
@@ -133,6 +134,8 @@ function SocialLinks({ socials, accent }) {
                 </a>
             ))}
         </div>
+    
+
     );
 }
 
@@ -157,7 +160,11 @@ function Avatar({ name, image, accent, size = 'w-36 h-36' }) {
 }
 
 export default function Team() {
+    
     return (
+          <>
+                  <Seo path="/team" title="Our Team | AKCLNT" description="Meet the team behind AKCLNT — developers, marketers, and specialists delivering web, AI, and digital solutions for clients in Pakistan and beyond." />
+
         <div className="overflow-hidden">
           {/* ===== HEADER ===== */}
             <section className="relative bg-void text-paper pt-36 pb-28 overflow-hidden">
@@ -349,5 +356,7 @@ export default function Team() {
                 </Reveal>
             </section>
         </div>
+               
+ </>
     );
 }

@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
@@ -48,6 +49,8 @@ const sections = [
 
 export default function Privacy() {
     return (
+<>
+        <Seo path="/privacy" title="Privacy Policy | AKCLNT" description="How AKCLNT collects, uses, and protects your data." />
         <div className="overflow-hidden">
             {/* Header */}
             <section className="relative bg-void text-paper pt-36 pb-24 overflow-hidden">
@@ -101,5 +104,6 @@ export default function Privacy() {
                 </Reveal>
             </section>
         </div>
+        </>
     );
 }

@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -39,6 +40,8 @@ export default function Blog() {
     const rest = showFeatured ? posts.slice(1) : posts;
 
     return (
+        <>
+        <Seo path="/blog" title="Blog — Web, AI & Marketing Insights | AKCLNT" description="Practical guides and insights on web development, AI automation, and digital marketing for Pakistani businesses — from the AKCLNT team." />
         <div className="overflow-hidden">
             {/* ===== HEADER ===== */}
             <section className="relative bg-void text-paper pt-36 pb-28 overflow-hidden">
@@ -214,5 +217,7 @@ export default function Blog() {
                 </Reveal>
             </section>
         </div>
+                </>
+
     );
 }

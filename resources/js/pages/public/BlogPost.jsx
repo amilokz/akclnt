@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -27,7 +28,7 @@ function renderMarkdown(md = '') {
         if (/^\u0000BLOCK\d+\u0000$/.test(c)) return c;
         if (/^###\s/.test(c)) return `<h3>${inline(c.replace(/^###\s/, ''))}</h3>`;
         if (/^##\s/.test(c))  return `<h2>${inline(c.replace(/^##\s/, ''))}</h2>`;
-        if (/^#\s/.test(c))   return `<h1>${inline(c.replace(/^#\s/, ''))}</h1>`;
+                if (/^#\s/.test(c))   return `<h2>${inline(c.replace(/^#\s/, ''))}</h2>`;
         if (/^>\s/.test(c))   return `<blockquote>${inline(c.replace(/^>\s?/gm, ''))}</blockquote>`;
         if (/^(-{3,}|\*{3,})$/.test(c)) return '<hr>';
         if (/^[-*]\s/m.test(c) && c.split('\n').every((l) => /^[-*]\s/.test(l.trim()))) {
@@ -83,6 +84,13 @@ export default function BlogPost() {
     const { post, related, reading_time } = data;
 
     return (
+         <>
+        <Seo
+            path={`/blog/${slug}`}
+            title={`${post.meta_title || post.title} | AKCLNT Blog`}
+            description={post.meta_description || post.excerpt || ''}
+            image={post.cover_image}
+        />
         <div className="overflow-hidden">
             {/* header */}
             <section className="relative bg-void text-paper pt-36 pb-20 overflow-hidden">
@@ -185,5 +193,6 @@ export default function BlogPost() {
                 .post-body strong { color: #0B0D14; font-weight: 600; }
             `}</style>
         </div>
+        </>
     );
 }

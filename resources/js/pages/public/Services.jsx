@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -87,6 +88,8 @@ export default function Services() {
     });
 
     return (
+        <>
+        <Seo path="/services" title="Our Services — Web, AI, Marketing & Hosting | AKCLNT" description="Explore AKCLNT's services: custom web development, AI & automation, digital marketing, hosting, lead generation, and consulting for businesses in Pakistan and abroad." />
         <div className="bg-void text-paper overflow-hidden">
 
             {/* ===== HEADER ===== */}
@@ -351,5 +354,6 @@ export default function Services() {
                 </Reveal>
             </section>
         </div>
+         </>
     );
 }

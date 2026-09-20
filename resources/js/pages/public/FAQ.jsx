@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
@@ -14,6 +15,8 @@ const faqs = [
 
 function FAQItem({ faq, isOpen, onToggle }) {
     return (
+       
+       
         <div className="border border-mist rounded-2xl bg-white overflow-hidden transition-colors hover:border-signal/40">
             <button
                 onClick={onToggle}
@@ -37,6 +40,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
                 </div>
             </div>
         </div>
+        
     );
 }
 
@@ -44,6 +48,8 @@ export default function FAQ() {
     const [openIndex, setOpenIndex] = useState(0);
 
     return (
+         <>
+          <Seo path="/faq" title="Frequently Asked Questions | AKCLNT" description="Answers to common questions about AKCLNT's services, pricing, process, and how we work with businesses in Pakistan and internationally." />
         <div className="overflow-hidden">
             {/* Header */}
             <section className="relative bg-void text-paper pt-36 pb-24 overflow-hidden">
@@ -81,5 +87,6 @@ export default function FAQ() {
                 </div>
             </section>
         </div>
+         </>
     );
 }

@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -33,6 +34,8 @@ export default function Products() {
     };
 
     return (
+        <>
+        <Seo path="/products" title="Digital Products & Tools | AKCLNT" description="Browse ready-made digital products, boilerplates, and tools built by AKCLNT to help you launch faster." />
         <div className="overflow-hidden">
             {/* ===== HEADER ===== */}
             <section className="relative bg-void text-paper pt-36 pb-32 overflow-hidden">
@@ -225,5 +228,7 @@ export default function Products() {
                 </Reveal>
             </section>
         </div>
+                </>
+
     );
 }

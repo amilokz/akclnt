@@ -25,6 +25,7 @@ import BlogPost from '../pages/public/BlogPost.jsx';
 import AdminPosts from '../pages/admin/AdminPosts.jsx';
 import Products from '../pages/public/Products.jsx';
 import AdminProducts from '../pages/admin/AdminProducts.jsx';
+import AdminPortfolio from '../pages/admin/AdminPortfolio.jsx';
 
 export default function AppRoutes() {
     return (
@@ -60,6 +61,7 @@ export default function AppRoutes() {
                 <Route path="/admin/analytics" element={<Analytics />} />
                 <Route path="/admin/posts" element={<AdminPosts />} />
                 <Route path="/admin/products" element={<AdminProducts />} />
+                                <Route path="/admin/portfolio" element={<AdminPortfolio />} />
             </Route>
             <Route
                 path="/client/dashboard"

@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
@@ -63,6 +64,8 @@ export default function Contact() {
 
     if (submitted) {
         return (
+            <>
+            <Seo path="/contact" title="Contact AKCLNT — Get a Free Quote" description="Get in touch with AKCLNT for web development, AI automation, and digital marketing. Book a free consultation or request a custom quote today." />
             <div className="relative bg-void text-paper min-h-[70vh] flex items-center overflow-hidden pt-24">
                 <div className="mesh-bg">
                     <div className="aurora absolute left-1/2 top-1/2 w-[50vw] h-[50vw] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
@@ -78,10 +81,13 @@ export default function Contact() {
                     </p>
                 </div>
             </div>
+              </>
         );
     }
 
     return (
+          <>
+            <Seo path="/contact" title="Contact AKCLNT — Get a Free Quote" description="Get in touch with AKCLNT for web development, AI automation, and digital marketing. Book a free consultation or request a custom quote today." />
         <div className="relative bg-void text-paper min-h-screen overflow-hidden pt-32 pb-24">
             <div className="mesh-bg">
                 <div className="grid-overlay-dark absolute inset-0" />
@@ -182,5 +188,7 @@ export default function Contact() {
                 </Reveal>
             </div>
         </div>
+              
+</>
     );
 }

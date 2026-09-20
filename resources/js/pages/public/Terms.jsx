@@ -1,3 +1,4 @@
+import Seo from '../../components/ui/Seo.jsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
@@ -56,6 +57,8 @@ const sections = [
 
 export default function Terms() {
     return (
+           <>
+           <Seo path="/terms" title="Terms of Service | AKCLNT" description="The terms and conditions for using AKCLNT's website and services." />
         <div className="overflow-hidden">
             {/* Header */}
             <section className="relative bg-void text-paper pt-36 pb-24 overflow-hidden">
@@ -109,5 +112,6 @@ export default function Terms() {
                 </Reveal>
             </section>
         </div>
+            </>
     );
 }
