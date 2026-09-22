@@ -155,6 +155,17 @@ export default function Portfolio() {
                                                 </span>
                                             ))}
                                         </div>
+                                        {project.link && (
+                                            
+                                                href={project.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="inline-flex items-center gap-1.5 mt-5 font-mono text-xs uppercase tracking-wider text-signal hover:text-ink transition-colors"
+                                            >
+                                                Visit Project <ArrowUpRight size={14} />
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </TiltCard>
