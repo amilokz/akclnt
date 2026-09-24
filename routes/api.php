@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PortfolioController;
+use App\Http\Controllers\Api\ProOrderController;
 
 
 
@@ -25,6 +26,9 @@ Route::get('/posts/{slug}', [PostController::class, 'show']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 Route::post('/chat', [ChatController::class, 'chat']);
+
+Route::get('/pro-audit/packages', [ProOrderController::class, 'packages']);
+Route::post('/pro-audit/orders', [ProOrderController::class, 'store'])->middleware('throttle:5,1');
 
 Route::middleware('auth:sanctum')->group(function () {
     // har logged-in user ke liye (admin, team, client)
@@ -62,6 +66,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/admin/portfolio/{id}', [PortfolioController::class, 'update']);
         Route::delete('/admin/portfolio/{id}', [PortfolioController::class, 'destroy']);
         Route::post('/admin/portfolio/upload', [PortfolioController::class, 'uploadImage']);
+
+        Route::get('/admin/pro-orders', [ProOrderController::class, 'adminIndex']);
+        Route::patch('/admin/pro-orders/{id}/status', [ProOrderController::class, 'updateStatus']);
     });
 });
 Route::post('/website-audit', [\App\Http\Controllers\WebsiteAuditController::class, 'store'])->middleware('throttle:10,1');

@@ -122,6 +122,7 @@ export default function AuditPage() {
                       <input name="email" type="email" value={form.email} onChange={update} placeholder="you@company.com" className={input} />
                     </label>
                     {error && <p role="alert" className="text-sm text-red-400">{error}</p>}
+                    {error.includes('free audits') && <Link to="/pro-audit" className="text-sm font-semibold text-signal hover:underline">See the Pro Audit</Link>}
                     <button onClick={submit} disabled={status === 'sending'}
                       className="btn-primary mt-2 rounded-full px-7 py-4 font-semibold disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-signal focus:ring-offset-2 focus:ring-offset-slate-panel">
                       {status === 'sending' ? 'Starting audit...' : 'Audit my website'}
@@ -220,6 +221,16 @@ export default function AuditPage() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+        {/* Pro teaser */}
+        <section className="px-4 pb-28">
+          <div className="max-w-6xl mx-auto rounded-3xl border border-signal/30 bg-slate-panel p-8 md:p-12 flex flex-wrap items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">Need the full picture?</h2>
+              <p className="mt-3 text-mist/70">The Pro Audit checks desktop and mobile, up to 5 pages and your mobile app, and comes as a PDF with a step-by-step fix plan.</p>
+            </div>
+            <Link to="/pro-audit" className="btn-primary rounded-full px-7 py-3.5 font-semibold">See the Pro Audit</Link>
           </div>
         </section>
       </main>

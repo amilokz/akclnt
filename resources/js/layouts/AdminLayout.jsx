@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import {
-        LayoutDashboard, Users, FolderKanban, Package, LogOut, BarChart3 ,FileText, Menu, X, ExternalLink, LayoutGrid
-} from 'lucide-react';
+        LayoutDashboard, Users, FolderKanban, Package, LogOut, BarChart3 ,FileText, Menu, X, ExternalLink, LayoutGrid,
+    Receipt } from 'lucide-react';
 
 const nav = [
     { to: '/admin/dashboard', label: 'Overview', Icon: LayoutDashboard },
@@ -13,6 +13,7 @@ const nav = [
     { to: '/admin/posts', label: 'Blog', Icon: FileText },
     { to: '/admin/products', label: 'Products', Icon: Package },
         { to: '/admin/portfolio', label: 'Portfolio', Icon: LayoutGrid },
+    { to: '/admin/pro-orders', label: 'Pro Orders', Icon: Receipt },
 ];
 
 export default function AdminLayout() {
