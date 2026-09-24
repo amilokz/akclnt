@@ -29,6 +29,7 @@ Route::post('/chat', [ChatController::class, 'chat']);
 
 Route::get('/pro-audit/packages', [ProOrderController::class, 'packages']);
 Route::post('/pro-audit/orders', [ProOrderController::class, 'store'])->middleware('throttle:5,1');
+Route::post('/pro-audit/orders/{id}/report', [ProOrderController::class, 'report'])->middleware('throttle:20,1');
 
 Route::middleware('auth:sanctum')->group(function () {
     // har logged-in user ke liye (admin, team, client)
@@ -69,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/admin/pro-orders', [ProOrderController::class, 'adminIndex']);
         Route::patch('/admin/pro-orders/{id}/status', [ProOrderController::class, 'updateStatus']);
+        Route::post('/admin/pro-orders/{id}/retry', [ProOrderController::class, 'retry']);
     });
 });
 Route::post('/website-audit', [\App\Http\Controllers\WebsiteAuditController::class, 'store'])->middleware('throttle:10,1');
