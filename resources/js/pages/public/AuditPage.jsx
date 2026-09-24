@@ -64,7 +64,8 @@ export default function AuditPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setStatus("idle"); setError(data.message || "The audit could not start. Check the website address and try again."); return; }
       setStep(0);
       setStatus('running');
     } catch {

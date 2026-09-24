@@ -22,8 +22,8 @@ export default function FreeAudit() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setStatus("error"); setMsg(data.message || "Check the website address and email, then try again."); return; }
       setStatus("done");
       setMsg(data.message || "Audit started. Check your inbox in 1-2 minutes.");
     } catch {

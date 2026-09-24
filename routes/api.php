@@ -64,3 +64,4 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/admin/portfolio/upload', [PortfolioController::class, 'uploadImage']);
     });
 });
+Route::post('/website-audit', [\App\Http\Controllers\WebsiteAuditController::class, 'store'])->middleware('throttle:10,1');
