@@ -231,6 +231,13 @@ export function Hero() {
                 <span aria-hidden="true">↗</span>
               </span>
             </Link>
+
+            <Link
+              to="/free-audit"
+              className="rounded-full px-5 py-3.5 text-sm font-semibold text-signal underline-offset-4 hover:underline"
+            >
+              Get a free website audit
+            </Link>
           </div>
 
           {/* Stats strip (animated count-up) */}

@@ -10,6 +10,7 @@ import Team from '../pages/public/Team.jsx';
 import Testimonials from '../pages/public/Testimonials.jsx';
 import FAQ from '../pages/public/FAQ.jsx';
 import Contact from '../pages/public/Contact.jsx';
+import AuditPage from '../pages/public/AuditPage.jsx';
 import Login from '../pages/admin/Login.jsx';
 import Dashboard from '../pages/admin/Dashboard.jsx';
 import ClientDashboard from '../pages/client/ClientDashboard.jsx';
@@ -40,6 +41,7 @@ export default function AppRoutes() {
                 <Route path="/testimonials" element={<Testimonials />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/free-audit" element={<AuditPage />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/blog" element={<Blog />} />

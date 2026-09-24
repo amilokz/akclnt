@@ -146,6 +146,17 @@ export default function Navbar() {
                                 })}
                             </div>
 
+                            <Link
+                                to="/free-audit"
+                                className="hidden md:inline-flex items-center gap-2 text-white/85 hover:text-white text-sm font-medium px-4 py-2 rounded-full border border-white/15 hover:border-white/30 hover:bg-white/5 transition-colors"
+                            >
+                                <span className="relative flex h-2 w-2">
+                                    <span className="absolute inline-flex h-full w-full rounded-full bg-teal opacity-60 animate-ping motion-reduce:animate-none" />
+                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
+                                </span>
+                                Free Audit
+                            </Link>
+
                             {/* CTA */}
                             <Link
                                 to="/contact"
@@ -329,6 +340,17 @@ export default function Navbar() {
                         );
                     })}
 
+                    <Link
+                        to="/free-audit"
+                        onClick={() => setOpen(false)}
+                        className="mt-8 inline-flex items-center justify-center gap-2 text-white text-base font-medium px-6 py-4 rounded-full border border-white/20"
+                        style={{
+                            opacity: open ? 1 : 0,
+                            transition: `opacity 0.4s ease ${0.05 + links.length * 0.05}s`,
+                        }}
+                    >
+                        <span className="h-2 w-2 rounded-full bg-teal" /> Free Website Audit
+                    </Link>
                     <Link
                         to="/contact"
                         onClick={() => setOpen(false)}

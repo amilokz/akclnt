@@ -10,6 +10,7 @@ import { Hero } from '../../components/sections/Hero';
 import ctaShape1 from "../../assets/ns-img-500.png";
 import ctaShape2 from "../../assets/ns-img-505.png";
 import { Founders } from '../../components/sections/Founders';
+import FreeAudit from '../../components/sections/FreeAudit.jsx';
 import CountUp from '../../components/ui/CountUp.jsx';
 import { Users, Layers, Clock, Code2 as CodeIcon } from 'lucide-react';
 
@@ -386,6 +387,7 @@ export default function Home() {
 
                         {/* ============ FOUNDERS ============ */}
             <Founders />
+            <FreeAudit />
 
             {/* ============ PORTFOLIO ============ */}
             <section className="bg-ink py-24">
