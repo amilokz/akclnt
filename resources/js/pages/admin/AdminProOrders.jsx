@@ -39,6 +39,19 @@ export default function AdminProOrders() {
 
     const changeFilter = (f) => { setFilter(f); setPage(1); };
 
+    const retry = async (order) => {
+        if (!window.confirm(`Run the audit again for order #${order.id}? Only do this if the report has not arrived after 10 minutes.`)) return;
+        setBusy(order.id);
+        try {
+            const { data } = await axios.post(`/api/admin/pro-orders/${order.id}/retry`);
+            window.alert(data.ok ? 'Audit restarted. The report should arrive in 3-5 minutes.' : 'Could not start the audit. Check that the n8n workflow is published.');
+        } catch {
+            setError(`Could not restart order #${order.id}. Try again.`);
+        } finally {
+            setBusy(null);
+        }
+    };
+
     const copyTid = (order) => {
         navigator.clipboard?.writeText(order.tid);
         setCopied(order.id);
@@ -161,6 +174,9 @@ export default function AdminProOrders() {
                                                 {statusMeta[o.status]?.label || o.status}
                                             </span>
                                             {o.admin_note && <p className="text-xs text-gray-400 mt-1 max-w-[160px]">{o.admin_note}</p>}
+                                            {o.status === 'approved' && (o.report_sent_at
+                                                ? <p className="text-xs text-emerald-600 mt-1">Report sent {fmtDate(o.report_sent_at)}</p>
+                                                : <p className="text-xs text-amber-600 mt-1">Report in progress · <button onClick={() => retry(o)} disabled={busy === o.id} className="underline hover:text-amber-800 disabled:opacity-50">Retry</button></p>)}
                                         </td>
                                         <td className="px-6 py-4 text-right whitespace-nowrap">
                                             {o.status === 'pending' ? (

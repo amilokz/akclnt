@@ -49,6 +49,8 @@ class ProOrderController extends Controller
             'ip'     => $request->header('CF-Connecting-IP') ?: $request->ip(),
         ]);
 
+        $this->notifyAdmin($order);
+
         return response()->json([
             'ok'       => true,
             'order_id' => $order->id,
@@ -178,5 +180,29 @@ class ProOrderController extends Controller
             Log::error("Pro audit #{$order->id}: Resend failed: " . $res->body());
         }
         return $res->successful();
+    }
+
+    private function notifyAdmin(ProOrder $order): void
+    {
+        try {
+            $label  = config("pro_audit.packages.{$order->package}.label", $order->package);
+            $target = e(trim(($order->website_url ?? '') . ' ' . ($order->app_url ?? '')));
+            $admin  = rtrim(config('app.url'), '/') . '/admin/pro-orders';
+
+            Http::withToken(config('pro_audit.resend_key'))->timeout(15)->post('https://api.resend.com/emails', [
+                'from'    => config('pro_audit.mail_from'),
+                'to'      => [config('pro_audit.admin_email')],
+                'subject' => "New Pro order #{$order->id}: Rs {$order->amount}, verify TID {$order->tid}",
+                'html'    => "<h2>New Pro Audit order #{$order->id}</h2>"
+                    . "<p><b>Package:</b> " . e($label) . " (Rs {$order->amount})<br>"
+                    . "<b>TID:</b> " . e($order->tid) . "<br>"
+                    . "<b>Customer:</b> " . e($order->name) . " (" . e($order->email) . ")<br>"
+                    . "<b>WhatsApp:</b> " . e($order->phone ?: '-') . "<br>"
+                    . "<b>Audit target:</b> {$target}</p>"
+                    . "<p>Check the TID in JazzCash, then approve here: <a href=\"{$admin}\">Open Pro Orders</a></p>",
+            ]);
+        } catch (\Throwable $e) {
+            Log::error("Pro order #{$order->id}: admin alert failed: " . $e->getMessage());
+        }
     }
 }
