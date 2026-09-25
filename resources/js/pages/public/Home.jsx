@@ -12,6 +12,8 @@ import ctaShape2 from "../../assets/ns-img-505.png";
 import { Founders } from '../../components/sections/Founders';
 import FreeAudit from '../../components/sections/FreeAudit.jsx';
 import CountUp from '../../components/ui/CountUp.jsx';
+import imgSellhive from '../../assets/projects/sellhive.jpg.jpg';
+import imgEzitech from '../../assets/projects/ezitech.jpg.jpg';
 import { Users, Layers, Clock, Code2 as CodeIcon } from 'lucide-react';
 
 
@@ -43,6 +45,30 @@ const stats = [
 ];
 
 const marqueeItems = ['Laravel', 'React', 'MySQL', 'Flutter', 'Node.js', 'Vite', 'Tailwind', 'REST APIs', 'Cloudinary'];
+
+const featured = [
+    {
+        title: 'SellHive',
+        tag: 'Client · Website + accounting system',
+        result: 'Lead-focused website and business accounting system for an Amazon ads agency.',
+        image: imgSellhive,
+        href: 'https://sellhive.net',
+    },
+    {
+        title: 'Ezitech Intern Portal',
+        tag: 'Web platform · Built at Ezitech',
+        result: 'Runs a full internship program: 15,800+ interns trained and 6,700+ active on the platform.',
+        image: imgEzitech,
+        href: 'https://portal.ezitech.org',
+    },
+    {
+        title: 'AI Website Audit',
+        tag: 'Our product · AI automation',
+        result: 'Checks any website with Google PageSpeed and AI, then emails a full report in about 2 minutes.',
+        image: null,
+        href: '/free-audit',
+    },
+];
 
 export default function Home() {
     const [services, setServices] = useState([]);
@@ -399,24 +425,43 @@ export default function Home() {
                         </h2>
                     </Reveal>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            { title: 'Retail Inventory', tag: 'Software', tint: 'from-signal/20 to-violet/20' },
-                            { title: 'Intern Management Platform', tag: 'Web App', tint: 'from-teal/20 to-signal/20' },
-                            { title: 'Accounting Management System', tag: 'Software', tint: 'from-violet/20 to-teal/20' },
-                        ].map((item, i) => (
-                            <Reveal key={item.title} delay={i * 0.1}>
-                                <TiltCard max={9}>
-                                    <div className="group relative rounded-2xl overflow-hidden border border-white/10 aspect-[4/3] flex flex-col justify-end p-6">
-                                        <div className={`absolute inset-0 bg-gradient-to-br ${item.tint}`} />
-                                        <div className="grid-overlay-dark absolute inset-0 opacity-50" />
-                                        <div className="relative">
-                                            <span className="font-mono text-xs text-teal">{item.tag}</span>
-                                            <h3 className="font-display text-lg font-semibold text-paper mt-2">{item.title}</h3>
-                                        </div>
+                        {featured.map((item, i) => {
+                            const external = item.href.startsWith('http');
+                            const Card = (
+                                <div className="group h-full rounded-2xl overflow-hidden border border-white/10 bg-ink-soft flex flex-col transition-colors hover:border-signal/50">
+                                    <div className="relative aspect-[16/10] overflow-hidden bg-void">
+                                        {item.image ? (
+                                            <img src={item.image} alt={`${item.title} screenshot`} loading="lazy"
+                                                className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+                                        ) : (
+                                            <div className="h-full w-full flex items-center justify-center gap-4 bg-gradient-to-br from-signal/20 to-teal/10">
+                                                {[{ v: 92, c: 'var(--color-teal)', l: 'Speed' }, { v: 81, c: '#F5A524', l: 'SEO' }, { v: 64, c: '#F5A524', l: 'Access.' }].map((r) => (
+                                                    <div key={r.l} className="flex flex-col items-center gap-1.5">
+                                                        <div className="h-14 w-14 rounded-full border-4 flex items-center justify-center font-display font-bold text-paper" style={{ borderColor: r.c }}>{r.v}</div>
+                                                        <span className="font-mono text-[0.6rem] uppercase tracking-wider text-white/50">{r.l}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
-                                </TiltCard>
-                            </Reveal>
-                        ))}
+                                    <div className="p-6 flex flex-col flex-1">
+                                        <span className="font-mono text-xs text-teal">{item.tag}</span>
+                                        <h3 className="font-display text-lg font-semibold text-paper mt-2">{item.title}</h3>
+                                        <p className="text-white/55 text-sm leading-relaxed mt-2 flex-1">{item.result}</p>
+                                        <span className="inline-flex items-center gap-1.5 mt-4 font-mono text-xs uppercase tracking-wider text-signal">
+                                            {external ? 'View live' : 'Try it free'} <ArrowUpRight size={14} />
+                                        </span>
+                                    </div>
+                                </div>
+                            );
+                            return (
+                                <Reveal key={item.title} delay={i * 0.1}>
+                                    {external
+                                        ? <a href={item.href} target="_blank" rel="noopener noreferrer" className="block h-full">{Card}</a>
+                                        : <Link to={item.href} className="block h-full">{Card}</Link>}
+                                </Reveal>
+                            );
+                        })}
                     </div>
                     <Reveal delay={0.15}>
                         <Link to="/portfolio" className="inline-flex items-center gap-2 mt-10 font-mono text-xs uppercase tracking-wider text-signal hover:gap-3 transition-all">
@@ -440,9 +485,9 @@ export default function Home() {
                     </Reveal>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[
-                            { name: 'Abbas Ali', role: 'Business Owner', text: 'Komil delivered exactly what we needed — a fast, clean website that actually converts. Communication was smooth and the whole thing was done ahead of schedule.' },
-                            { name: 'Sarfaraz', role: 'Client', text: 'The n8n automation he set up saved us hours of manual work every week. Everything just runs on its own now. Highly recommended for anyone drowning in repetitive tasks.' },
-                            { name: 'Danish', role: 'Store Owner', text: 'Our online store looks premium and works flawlessly. He handled everything from design to payment setup, and was always available whenever we had questions.' },
+                            { name: 'Muhammad Ishfaq', role: 'Founder, SellHive', text: 'We needed a website that brings in leads and a proper system to manage our accounts. akclnt built both. The site looks professional, the accounting system saves us hours every month, and Komil was always quick to reply whenever we needed a change.' },
+                            { name: 'Sarfaraz', role: 'Founder, SoftwayHub', text: 'We partnered with akclnt on an AI chatbot for one of our client projects. Komil understood the requirements quickly, kept us updated throughout and delivered a working solution on time. A reliable team to work with.' },
+                            { name: 'Syed Murtaza', role: 'Founder, E-commerce Startup', text: 'We were just starting out and needed an online store that looks trustworthy from day one. akclnt built it quickly, set up everything from products to payments, and explained how to manage it ourselves. Great support for a new business.' },
                         ].map((t, i) => {
                             const accents = [
                                 { from: '#5B5FEF', to: '#8B7BF7', glow: 'rgba(91,95,239,0.12)' },
