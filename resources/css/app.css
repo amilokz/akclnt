@@ -446,3 +446,7 @@ body {
 .animate-words-badge-loop span:nth-child(4) { animation-delay: 1.8s; }
 .animate-words-badge-loop span:nth-child(5) { animation-delay: 2.4s; }
 
+
+/* Second marquee row (runs the other way) */
+.marquee-track-reverse { animation: marquee 34s linear infinite reverse; }
+@media (prefers-reduced-motion: reduce) { .marquee-track-reverse { animation: none !important; } }

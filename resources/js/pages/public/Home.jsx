@@ -2,7 +2,7 @@ import Seo from '../../components/ui/Seo.jsx';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Code2, Smartphone, ShoppingCart, Settings, ArrowRight, ArrowUpRight, Sparkles, Zap, ShieldCheck } from 'lucide-react';
+import { Bot, Code2, Smartphone, ShoppingCart, Settings, ArrowRight, ArrowUpRight, Sparkles, Zap, ShieldCheck } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 import TiltCard from '../../components/ui/TiltCard.jsx';
 import MagneticButton from '../../components/ui/MagneticButton.jsx';
@@ -18,10 +18,11 @@ import { Users, Layers, Clock, Code2 as CodeIcon } from 'lucide-react';
 
 
 const pillars = [
-    { icon: Code2, title: 'Web Development', desc: 'Custom sites and web apps that load fast and turn visitors into customers.' },
-    { icon: Smartphone, title: 'Mobile Apps', desc: 'Cross-platform apps for iOS and Android from a single, maintainable codebase.' },
-    { icon: ShoppingCart, title: 'E-Commerce', desc: 'Online stores with secure payments, inventory, and order management built in.' },
-    { icon: Settings, title: 'Business Software', desc: 'CRMs, dashboards, and internal tools built around how your team actually works.' },
+    { icon: Bot, title: 'AI and Automation', featured: true, desc: 'AI chatbots, n8n workflows and WhatsApp automation that take repetitive work off your team and reply to customers in seconds.', chips: ['AI Chatbots', 'n8n Workflows', 'WhatsApp Automation'] },
+    { icon: Code2, title: 'Web Development', desc: 'Custom websites and web apps that load fast and turn visitors into customers.', chips: ['Business sites', 'Web apps', 'SEO ready'] },
+    { icon: Smartphone, title: 'Mobile Apps', desc: 'Android and iOS apps from a single codebase, built with Flutter.', chips: ['Flutter', 'Android', 'iOS'] },
+    { icon: ShoppingCart, title: 'E-Commerce', desc: 'Online stores with secure payments, inventory and order management built in.', chips: ['Stores', 'Payments', 'Inventory'] },
+    { icon: Settings, title: 'Business Software', desc: 'CRMs, dashboards and accounting tools built around how your team actually works.', chips: ['CRM', 'Dashboards', 'Accounting'] },
 ];
 
 const whyUs = [
@@ -45,6 +46,7 @@ const stats = [
 ];
 
 const marqueeItems = ['Clinics and Healthcare', 'Real Estate', 'E-commerce Stores', 'Restaurants', 'Schools and Institutes', 'Amazon Sellers', 'Startups', 'Agencies'];
+const marqueeServices = ['AI Chatbots', 'n8n Automation', 'WhatsApp Automation', 'Custom Websites', 'Mobile Apps', 'E-commerce', 'SEO', 'Cloudflare Security', 'Cloud Hosting'];
 
 const featured = [
     {
@@ -86,7 +88,7 @@ export default function Home() {
             <Hero />
 
             {/* ============ TECH MARQUEE ============ */}
-            <section className="bg-ink border-y border-white/10 py-5 overflow-hidden">
+            <section className="bg-ink border-y border-white/10 py-5 overflow-hidden space-y-3">
                 <div className="marquee-mask">
                     <div className="marquee-track flex gap-10 w-max">
                         {[...marqueeItems, ...marqueeItems].map((item, i) => (
@@ -96,90 +98,87 @@ export default function Home() {
                         ))}
                     </div>
                 </div>
+                <div className="marquee-mask">
+                    <div className="marquee-track-reverse flex gap-10 w-max">
+                        {[...marqueeServices, ...marqueeServices].map((item, i) => (
+                            <span key={i} className="font-mono text-sm text-white/70 uppercase tracking-wider whitespace-nowrap flex items-center gap-10">
+                                {item} <span className="text-teal">◆</span>
+                            </span>
+                        ))}
+                    </div>
+                </div>
             </section>
 
             {/* ============ PILLARS ============ */}
-            <section className="relative py-24 overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
-                <div className="grid-overlay absolute inset-0 opacity-20" />
-                <div
-                    className="absolute top-0 right-0 w-[500px] h-[400px] blur-[120px] opacity-10 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse, #00A896, transparent 70%)" }}
-                />
+            <section className="relative py-24 overflow-hidden bg-white">
                 <div className="relative max-w-6xl mx-auto px-6">
-                    <div className="mb-16">
-                        <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-4">What We Do</p>
-                        <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink tracking-tight max-w-xl">
-                            Four disciplines.{" "}
-                            <span className="text-gradient">One team that ships.</span>
-                        </h2>
+                    <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
+                        <div className="max-w-2xl">
+                            <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-4">What We Do</p>
+                            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
+                                Five disciplines.{" "}<span className="text-gradient">One team that ships.</span>
+                            </h2>
+                            <p className="text-graphite mt-4 leading-relaxed">
+                                From your first website to AI that answers your customers at 2 a.m., everything is built in-house by the same team.
+                            </p>
+                        </div>
+                        <Link to="/services" className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-signal hover:gap-2.5 transition-all">
+                            All services <ArrowRight size={14} />
+                        </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {pillars.map((p, i) => {
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {pillars.map((p) => {
                             const Icon = p.icon;
-                            const accents = [
-                                { from: "#5B5FEF", to: "#8B7BF7", glow: "rgba(91,95,239,0.25)" },
-                                { from: "#00A896", to: "#5B5FEF", glow: "rgba(0,168,150,0.25)" },
-                                { from: "#8B7BF7", to: "#00A896", glow: "rgba(139,123,247,0.25)" },
-                                { from: "#5B5FEF", to: "#00A896", glow: "rgba(91,95,239,0.25)" },
-                            ];
-                            const accent = accents[i];
+                            if (p.featured) {
+                                return (
+                                    <Link key={p.title} to="/services"
+                                        className="group relative md:col-span-2 rounded-3xl bg-void text-paper p-8 md:p-10 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
+                                        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-signal/30 blur-3xl" />
+                                        <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-teal/20 blur-3xl" />
+                                        <div className="relative">
+                                            <div className="flex items-center justify-between gap-4">
+                                                <span className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center"><Icon size={22} className="text-teal" /></span>
+                                                <span className="font-mono text-[0.65rem] uppercase tracking-wider text-teal bg-teal/10 px-3 py-1 rounded-full">Most requested</span>
+                                            </div>
+                                            <h3 className="font-display text-2xl md:text-3xl font-bold mt-6">{p.title}</h3>
+                                            <p className="text-white/60 mt-3 max-w-lg leading-relaxed">{p.desc}</p>
+                                            <div className="mt-8 flex flex-wrap items-center gap-2 font-mono text-xs">
+                                                {['New WhatsApp message', 'AI replies instantly', 'Lead saved and team notified'].map((step, i, arr) => (
+                                                    <React.Fragment key={step}>
+                                                        <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-2 text-white/80">{step}</span>
+                                                        {i < arr.length - 1 && <span className="text-signal">→</span>}
+                                                    </React.Fragment>
+                                                ))}
+                                            </div>
+                                            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                                                <div className="flex flex-wrap gap-2">
+                                                    {p.chips.map((c) => (
+                                                        <span key={c} className="text-xs font-medium text-white/70 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">{c}</span>
+                                                    ))}
+                                                </div>
+                                                <span className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-signal group-hover:gap-2.5 transition-all">
+                                                    Explore <ArrowUpRight size={14} />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                );
+                            }
                             return (
-                                <div
-                                    key={p.title}
-                                    className="group cursor-pointer"
-                                    style={{ perspective: "1000px", height: "220px" }}
-                                >
-                                    <div
-                                        style={{
-                                            position: "relative",
-                                            width: "100%",
-                                            height: "100%",
-                                            transformStyle: "preserve-3d",
-                                            transition: "transform 0.7s cubic-bezier(0.4,0.2,0.2,1)",
-                                        }}
-                                        className="group-hover:[transform:rotateY(180deg)]"
-                                    >
-                                        {/* FRONT */}
-                                        <div
-                                            className="absolute inset-0 rounded-2xl p-7 flex flex-col border border-gray-100 shadow-md"
-                                            style={{
-                                                backgroundColor: "#ffffff",
-                                                backfaceVisibility: "hidden",
-                                                WebkitBackfaceVisibility: "hidden",
-                                            }}
-                                        >
-                                            <div
-                                                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-lg"
-                                                style={{ background: `linear-gradient(135deg, ${accent.from}, ${accent.to})` }}
-                                            >
-                                                <Icon size={24} className="text-white" />
-                                            </div>
-                                            <h3 className="font-display text-lg font-bold text-ink mb-2">{p.title}</h3>
-                                            <p className="text-graphite text-sm leading-relaxed">{p.desc}</p>
-                                        </div>
-
-                                        {/* BACK */}
-                                        <div
-                                            className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-7"
-                                            style={{
-                                                background: `linear-gradient(135deg, ${accent.from}, ${accent.to})`,
-                                                backfaceVisibility: "hidden",
-                                                WebkitBackfaceVisibility: "hidden",
-                                                transform: "rotateY(180deg)",
-                                                boxShadow: `0 8px 32px -8px ${accent.glow}`,
-                                            }}
-                                        >
-                                            <div
-                                                className="w-20 h-20 rounded-3xl flex items-center justify-center mb-4"
-                                                style={{ background: "rgba(255,255,255,0.2)" }}
-                                            >
-                                                <Icon size={40} className="text-white" />
-                                            </div>
-                                            <h3 className="font-display text-xl font-bold text-white text-center">{p.title}</h3>
-                                        </div>
+                                <Link key={p.title} to="/services"
+                                    className="group relative rounded-3xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-[0_20px_50px_-20px_rgba(91,95,239,0.35)]">
+                                    <span className="w-12 h-12 rounded-2xl bg-signal/10 flex items-center justify-center transition-colors group-hover:bg-signal">
+                                        <Icon size={22} className="text-signal transition-colors group-hover:text-white" />
+                                    </span>
+                                    <h3 className="font-display text-xl font-bold text-ink mt-6">{p.title}</h3>
+                                    <p className="text-graphite text-sm leading-relaxed mt-2 flex-1">{p.desc}</p>
+                                    <div className="mt-6 flex flex-wrap gap-2">
+                                        {p.chips.map((c) => (
+                                            <span key={c} className="text-xs text-graphite bg-gray-100 px-2.5 py-1 rounded-full">{c}</span>
+                                        ))}
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </div>
