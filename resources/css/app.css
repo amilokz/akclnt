@@ -454,3 +454,10 @@ body {
 /* Hide scrollbar but keep scrolling (service tabs on mobile) */
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* How We Work: moving 3D floor + flowing connector */
+@keyframes processFloor { from { background-position: 0 0; } to { background-position: 0 60px; } }
+.process-floor { animation: processFloor 3s linear infinite; }
+@keyframes processDash { to { stroke-dashoffset: -48; } }
+.process-dash { animation: processDash 1.6s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .process-floor, .process-dash { animation: none !important; } }

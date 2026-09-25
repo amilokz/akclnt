@@ -2,7 +2,7 @@ import Seo from '../../components/ui/Seo.jsx';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Bot, Code2, Smartphone, ShoppingCart, Settings, ArrowRight, ArrowUpRight, Sparkles, Zap, ShieldCheck } from 'lucide-react';
+import { Bot, Code2, Smartphone, ShoppingCart, Settings, ArrowRight, ArrowUpRight, Sparkles, Zap, ShieldCheck, Compass, PenTool, Rocket } from 'lucide-react';
 import Reveal from '../../components/ui/Reveal.jsx';
 import TiltCard from '../../components/ui/TiltCard.jsx';
 import MagneticButton from '../../components/ui/MagneticButton.jsx';
@@ -444,49 +444,95 @@ export default function Home() {
             </section>
 
             {/* ============ PROCESS ============ */}
-            <section className="relative py-24 overflow-hidden" style={{ backgroundColor: "#06070C" }}>
-                <div className="grid-overlay-dark absolute inset-0 opacity-30" />
-                <div
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] blur-[120px] opacity-15 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse, #5B5FEF, transparent 70%)" }}
-                />
+            <section className="relative py-28 overflow-hidden" style={{ backgroundColor: "#06070C" }}>
+                {/* 3D moving floor grid */}
+                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] [perspective:500px]">
+                    <div className="process-floor absolute inset-x-[-50%] bottom-[-10%] h-[160%] origin-bottom"
+                         style={{
+                             transform: 'rotateX(62deg)',
+                             backgroundImage: 'linear-gradient(rgba(91,95,239,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(91,95,239,0.35) 1px, transparent 1px)',
+                             backgroundSize: '60px 60px',
+                             maskImage: 'linear-gradient(to top, #000 10%, transparent 75%)',
+                             WebkitMaskImage: 'linear-gradient(to top, #000 10%, transparent 75%)',
+                         }} />
+                </div>
+                <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/3 -translate-x-1/2 h-[30rem] w-[50rem] rounded-full bg-signal/15 blur-3xl" />
+
                 <div className="relative max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-4">How We Work</p>
-                        <h2 className="font-display text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                            From idea to launch,{" "}
-                            <span className="text-gradient">in four steps.</span>
-                        </h2>
+                    <Reveal>
+                        <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
+                            <p className="font-mono text-xs uppercase tracking-[0.25em] text-teal mb-4">How We Work</p>
+                            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+                                From idea to launch, <span className="text-gradient">in four steps.</span>
+                            </h2>
+                            <p className="text-white/50 mt-4 leading-relaxed">
+                                You always know what is happening, what comes next and what you get at the end of each step.
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <div className="relative">
+                        {/* rising connector line (desktop) */}
+                        <svg aria-hidden="true" className="hidden md:block absolute inset-x-0 top-0 h-full w-full pointer-events-none" viewBox="0 0 1000 400" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="processLine" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stopColor="#5B5FEF" />
+                                    <stop offset="50%" stopColor="#00A896" />
+                                    <stop offset="100%" stopColor="#8B7BF7" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M 60 170 L 310 118 L 560 66 L 815 14" fill="none" stroke="url(#processLine)" strokeWidth="2" strokeOpacity="0.35" />
+                            <path className="process-dash" d="M 60 170 L 310 118 L 560 66 L 815 14" fill="none" stroke="url(#processLine)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="10 14" />
+                        </svg>
+
+                        {/* vertical line (mobile) */}
+                        <div aria-hidden="true" className="md:hidden absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-signal via-teal to-transparent" />
+
+                        <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6 [perspective:1200px]">
+                            {process.map((step, i) => {
+                                const meta = [
+                                    { icon: Compass, color: '#5B5FEF', get: 'Clear scope and quote' },
+                                    { icon: PenTool, color: '#00A896', get: 'Design you approve first' },
+                                    { icon: Code2, color: '#8B7BF7', get: 'Progress updates every week' },
+                                    { icon: Rocket, color: '#00A896', get: 'Live product and handover' },
+                                ][i % 4];
+                                const StepIcon = meta.icon;
+                                const lift = ['md:mt-24', 'md:mt-16', 'md:mt-8', 'md:mt-0'][i % 4];
+                                return (
+                                    <Reveal key={step.num} delay={i * 0.12} className={`relative pl-12 md:pl-0 ${lift}`}>
+                                        {/* mobile dot */}
+                                        <span aria-hidden="true" className="md:hidden absolute left-[14px] top-8 h-3 w-3 rounded-full ring-4 ring-[#06070C]" style={{ background: meta.color }} />
+                                        <TiltCard max={9} scale={1.04} className="h-full rounded-3xl" style={{ transformStyle: 'preserve-3d' }}>
+                                            <div className="relative h-full rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-md p-7 overflow-hidden"
+                                                 style={{ transformStyle: 'preserve-3d', boxShadow: `0 30px 60px -30px ${meta.color}66` }}>
+                                                <div aria-hidden="true" className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-2xl opacity-30" style={{ background: meta.color }} />
+                                                <div className="relative flex items-center justify-between" style={{ transform: 'translateZ(50px)' }}>
+                                                    <span className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: `${meta.color}22`, border: `1px solid ${meta.color}55` }}>
+                                                        <StepIcon size={22} style={{ color: meta.color }} />
+                                                    </span>
+                                                    <span className="font-display text-5xl font-black leading-none text-transparent"
+                                                          style={{ WebkitTextStroke: `1.5px ${meta.color}` }}>
+                                                        {step.num}
+                                                    </span>
+                                                </div>
+                                                <h3 className="relative font-display text-xl font-bold text-white mt-6" style={{ transform: 'translateZ(35px)' }}>{step.title}</h3>
+                                                <p className="relative text-white/55 text-sm leading-relaxed mt-2" style={{ transform: 'translateZ(20px)' }}>{step.desc}</p>
+                                                <div className="relative mt-6 pt-5 border-t border-white/10" style={{ transform: 'translateZ(30px)' }}>
+                                                    <p className="font-mono text-[0.6rem] uppercase tracking-wider text-white/35">You get</p>
+                                                    <p className="text-sm font-semibold mt-1" style={{ color: meta.color }}>{meta.get}</p>
+                                                </div>
+                                            </div>
+                                        </TiltCard>
+                                    </Reveal>
+                                );
+                            })}
+                        </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {process.map((step, i) => (
-                            <div
-                                key={step.num}
-                                className="group relative rounded-2xl p-px overflow-hidden transition-transform duration-300 hover:-translate-y-2"
-                                style={{ background: "linear-gradient(135deg, rgba(91,95,239,0.4), rgba(255,255,255,0.04))" }}
-                            >
-                                <div
-                                    className="relative rounded-2xl p-7 h-full flex flex-col"
-                                    style={{ backgroundColor: "#10121C" }}
-                                >
-                                    <div
-                                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                        style={{ background: "radial-gradient(circle at 50% 0%, rgba(91,95,239,0.18), transparent 70%)" }}
-                                    />
-                                    <div className="flex items-center justify-between mb-6 relative">
-                                        <div className="w-9 h-9 rounded-xl bg-signal flex items-center justify-center font-mono text-xs font-bold text-white shadow-lg shadow-signal/30">
-                                            {i + 1}
-                                        </div>
-                                        <span className="font-display text-5xl font-black text-white/5 group-hover:text-white/10 transition-colors">
-                                            {step.num}
-                                        </span>
-                                    </div>
-                                    <h3 className="font-display text-lg font-bold text-white mb-3 relative">{step.title}</h3>
-                                    <p className="text-white/50 text-sm leading-relaxed relative">{step.desc}</p>
-                                    <div className="mt-6 w-0 group-hover:w-full h-px bg-gradient-to-r from-signal to-violet transition-all duration-500" />
-                                </div>
-                            </div>
-                        ))}
+
+                    <div className="relative mt-16 text-center">
+                        <Link to="/contact" className="btn-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold">
+                            Start with step one <ArrowUpRight size={16} />
+                        </Link>
                     </div>
                 </div>
             </section>
