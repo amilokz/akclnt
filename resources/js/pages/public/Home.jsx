@@ -44,7 +44,7 @@ const stats = [
     { value: '100%', label: 'In-house code', icon: CodeIcon },
 ];
 
-const marqueeItems = ['Laravel', 'React', 'MySQL', 'Flutter', 'Node.js', 'Vite', 'Tailwind', 'REST APIs', 'Cloudinary'];
+const marqueeItems = ['Clinics and Healthcare', 'Real Estate', 'E-commerce Stores', 'Restaurants', 'Schools and Institutes', 'Amazon Sellers', 'Startups', 'Agencies'];
 
 const featured = [
     {
@@ -94,76 +94,6 @@ export default function Home() {
                                 {item} <span className="text-signal">◆</span>
                             </span>
                         ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ============ STATS ============ */}
-            <section className="relative py-24 overflow-hidden" style={{ backgroundColor: "#f0f4f8" }}>
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,95,239,0.05), transparent 70%)" }}
-                />
-                <div className="relative max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-14">
-                        <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-4">By The Numbers</p>
-                        <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
-                            Built on <span className="text-gradient">real results.</span>
-                        </h2>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {stats.map((stat, i) => {
-                            const accents = [
-                                { from: "#5B5FEF", to: "#8B7BF7", glow: "rgba(91,95,239,0.12)", icon: "🚀" },
-                                { from: "#00A896", to: "#5B5FEF", glow: "rgba(0,168,150,0.12)", icon: "⚡" },
-                                { from: "#8B7BF7", to: "#00A896", glow: "rgba(139,123,247,0.12)", icon: "🕐" },
-                                { from: "#5B5FEF", to: "#00A896", glow: "rgba(91,95,239,0.12)", icon: "✅" },
-                            ];
-                            const accent = accents[i];
-                            return (
-                                <div
-                                    key={stat.label}
-                                    className="group relative rounded-3xl p-px overflow-hidden transition-transform duration-300 hover:-translate-y-2"
-                                    style={{ background: `linear-gradient(135deg, ${accent.from}44, rgba(0,0,0,0.04))` }}
-                                >
-                                    <div
-                                        className="relative rounded-3xl px-6 py-10 flex flex-col items-center text-center h-full"
-                                        style={{ backgroundColor: "#ffffff", boxShadow: `0 8px 40px -12px ${accent.glow}` }}
-                                    >
-                                        <div
-                                            className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                            style={{ background: `radial-gradient(circle at 50% 0%, ${accent.glow}, transparent 70%)` }}
-                                        />
-                                                                              <div
-                                            className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                                            style={{
-                                                background: `linear-gradient(135deg, ${accent.from}15, ${accent.to}15)`,
-                                                border: `1.5px solid ${accent.from}30`,
-                                            }}
-                                        >
-                                            <stat.icon size={22} style={{ color: accent.from }} />
-                                        </div>
-                                        <div
-                                            className="font-display text-5xl font-black mb-2 relative leading-none"
-                                            style={{
-                                                background: `linear-gradient(135deg, #0B0D14 30%, ${accent.from})`,
-                                                WebkitBackgroundClip: "text",
-                                                WebkitTextFillColor: "transparent",
-                                            }}
-                                        >
-                                                                                     <CountUp value={stat.value} />
-                                        </div>
-                                        <div className="font-mono text-xs uppercase tracking-wider text-ink/40 mt-1 relative">
-                                            {stat.label}
-                                        </div>
-                                        <div
-                                            className="mt-5 h-1 w-8 group-hover:w-16 rounded-full transition-all duration-500"
-                                            style={{ background: `linear-gradient(to right, ${accent.from}, ${accent.to})` }}
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        })}
                     </div>
                 </div>
             </section>
@@ -250,6 +180,116 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* ============ PORTFOLIO ============ */}
+            <section className="bg-ink py-24">
+                <div className="max-w-6xl mx-auto px-6">
+                    <Reveal>
+                        <span className="font-mono text-xs uppercase tracking-wider text-teal">Recent work</span>
+                        <h2 className="font-display text-3xl md:text-4xl font-semibold text-paper mt-3 mb-14 max-w-lg">
+                            Things we've shipped for real businesses.
+                        </h2>
+                    </Reveal>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {featured.map((item, i) => {
+                            const external = item.href.startsWith('http');
+                            const Card = (
+                                <div className="group h-full rounded-2xl overflow-hidden border border-white/10 bg-ink-soft flex flex-col transition-colors hover:border-signal/50">
+                                    <div className="relative aspect-[16/10] overflow-hidden bg-void">
+                                        {item.image ? (
+                                            <img src={item.image} alt={`${item.title} screenshot`} loading="lazy"
+                                                className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+                                        ) : (
+                                            <div className="h-full w-full flex items-center justify-center gap-4 bg-gradient-to-br from-signal/20 to-teal/10">
+                                                {[{ v: 92, c: 'var(--color-teal)', l: 'Speed' }, { v: 81, c: '#F5A524', l: 'SEO' }, { v: 64, c: '#F5A524', l: 'Access.' }].map((r) => (
+                                                    <div key={r.l} className="flex flex-col items-center gap-1.5">
+                                                        <div className="h-14 w-14 rounded-full border-4 flex items-center justify-center font-display font-bold text-paper" style={{ borderColor: r.c }}>{r.v}</div>
+                                                        <span className="font-mono text-[0.6rem] uppercase tracking-wider text-white/50">{r.l}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="p-6 flex flex-col flex-1">
+                                        <span className="font-mono text-xs text-teal">{item.tag}</span>
+                                        <h3 className="font-display text-lg font-semibold text-paper mt-2">{item.title}</h3>
+                                        <p className="text-white/55 text-sm leading-relaxed mt-2 flex-1">{item.result}</p>
+                                        <span className="inline-flex items-center gap-1.5 mt-4 font-mono text-xs uppercase tracking-wider text-signal">
+                                            {external ? 'View live' : 'Try it free'} <ArrowUpRight size={14} />
+                                        </span>
+                                    </div>
+                                </div>
+                            );
+                            return (
+                                <Reveal key={item.title} delay={i * 0.1}>
+                                    {external
+                                        ? <a href={item.href} target="_blank" rel="noopener noreferrer" className="block h-full">{Card}</a>
+                                        : <Link to={item.href} className="block h-full">{Card}</Link>}
+                                </Reveal>
+                            );
+                        })}
+                    </div>
+                    <Reveal delay={0.15}>
+                        <Link to="/portfolio" className="inline-flex items-center gap-2 mt-10 font-mono text-xs uppercase tracking-wider text-signal hover:gap-3 transition-all">
+                            See full portfolio <ArrowRight size={14} />
+                        </Link>
+                    </Reveal>
+                </div>
+            </section>
+
+
+            {/* ============ TESTIMONIALS ============ */}
+            <section className="bg-paper py-24">
+                <div className="max-w-6xl mx-auto px-6">
+                    <Reveal>
+                        <div className="text-center mb-14 max-w-2xl mx-auto">
+                            <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-4">Testimonials</p>
+                            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
+                                What our <span className="text-gradient">clients say.</span>
+                            </h2>
+                        </div>
+                    </Reveal>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            { name: 'Muhammad Ishfaq', role: 'Founder, SellHive', text: 'We needed a website that brings in leads and a proper system to manage our accounts. akclnt built both. The site looks professional, the accounting system saves us hours every month, and Komil was always quick to reply whenever we needed a change.' },
+                            { name: 'Sarfaraz', role: 'Founder, SoftwayHub', text: 'We partnered with akclnt on an AI chatbot for one of our client projects. Komil understood the requirements quickly, kept us updated throughout and delivered a working solution on time. A reliable team to work with.' },
+                            { name: 'Syed Murtaza', role: 'Founder, E-commerce Startup', text: 'We were just starting out and needed an online store that looks trustworthy from day one. akclnt built it quickly, set up everything from products to payments, and explained how to manage it ourselves. Great support for a new business.' },
+                        ].map((t, i) => {
+                            const accents = [
+                                { from: '#5B5FEF', to: '#8B7BF7', glow: 'rgba(91,95,239,0.12)' },
+                                { from: '#00A896', to: '#5B5FEF', glow: 'rgba(0,168,150,0.12)' },
+                                { from: '#8B7BF7', to: '#00A896', glow: 'rgba(139,123,247,0.12)' },
+                            ];
+                            const accent = accents[i];
+                            return (
+                                <Reveal key={t.name} delay={i * 0.08}>
+                                    <div className="group h-full bg-white border border-gray-100 rounded-2xl p-8 flex flex-col transition-all duration-300 hover:-translate-y-2"
+                                         style={{ boxShadow: `0 8px 32px -12px ${accent.glow}` }}>
+                                        <div className="flex gap-1 mb-5">
+                                            {[...Array(5)].map((_, s) => (
+                                                <svg key={s} width="15" height="15" viewBox="0 0 24 24" style={{ fill: accent.from }}>
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                                </svg>
+                                            ))}
+                                        </div>
+                                        <p className="text-graphite text-sm leading-relaxed flex-1">"{t.text}"</p>
+                                        <div className="flex items-center gap-3 mt-6 pt-5 border-t border-gray-100">
+                                            <div className="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white shrink-0"
+                                                 style={{ background: `linear-gradient(135deg, ${accent.from}, ${accent.to})` }}>
+                                                {t.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <div className="font-display font-bold text-ink text-sm">{t.name}</div>
+                                                <div className="font-mono text-[0.65rem] uppercase tracking-wider text-graphite">{t.role}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Reveal>
                             );
                         })}
                     </div>
@@ -414,116 +454,6 @@ export default function Home() {
                         {/* ============ FOUNDERS ============ */}
             <Founders />
             <FreeAudit />
-
-            {/* ============ PORTFOLIO ============ */}
-            <section className="bg-ink py-24">
-                <div className="max-w-6xl mx-auto px-6">
-                    <Reveal>
-                        <span className="font-mono text-xs uppercase tracking-wider text-teal">Recent work</span>
-                        <h2 className="font-display text-3xl md:text-4xl font-semibold text-paper mt-3 mb-14 max-w-lg">
-                            Things we've shipped for real businesses.
-                        </h2>
-                    </Reveal>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {featured.map((item, i) => {
-                            const external = item.href.startsWith('http');
-                            const Card = (
-                                <div className="group h-full rounded-2xl overflow-hidden border border-white/10 bg-ink-soft flex flex-col transition-colors hover:border-signal/50">
-                                    <div className="relative aspect-[16/10] overflow-hidden bg-void">
-                                        {item.image ? (
-                                            <img src={item.image} alt={`${item.title} screenshot`} loading="lazy"
-                                                className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
-                                        ) : (
-                                            <div className="h-full w-full flex items-center justify-center gap-4 bg-gradient-to-br from-signal/20 to-teal/10">
-                                                {[{ v: 92, c: 'var(--color-teal)', l: 'Speed' }, { v: 81, c: '#F5A524', l: 'SEO' }, { v: 64, c: '#F5A524', l: 'Access.' }].map((r) => (
-                                                    <div key={r.l} className="flex flex-col items-center gap-1.5">
-                                                        <div className="h-14 w-14 rounded-full border-4 flex items-center justify-center font-display font-bold text-paper" style={{ borderColor: r.c }}>{r.v}</div>
-                                                        <span className="font-mono text-[0.6rem] uppercase tracking-wider text-white/50">{r.l}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="p-6 flex flex-col flex-1">
-                                        <span className="font-mono text-xs text-teal">{item.tag}</span>
-                                        <h3 className="font-display text-lg font-semibold text-paper mt-2">{item.title}</h3>
-                                        <p className="text-white/55 text-sm leading-relaxed mt-2 flex-1">{item.result}</p>
-                                        <span className="inline-flex items-center gap-1.5 mt-4 font-mono text-xs uppercase tracking-wider text-signal">
-                                            {external ? 'View live' : 'Try it free'} <ArrowUpRight size={14} />
-                                        </span>
-                                    </div>
-                                </div>
-                            );
-                            return (
-                                <Reveal key={item.title} delay={i * 0.1}>
-                                    {external
-                                        ? <a href={item.href} target="_blank" rel="noopener noreferrer" className="block h-full">{Card}</a>
-                                        : <Link to={item.href} className="block h-full">{Card}</Link>}
-                                </Reveal>
-                            );
-                        })}
-                    </div>
-                    <Reveal delay={0.15}>
-                        <Link to="/portfolio" className="inline-flex items-center gap-2 mt-10 font-mono text-xs uppercase tracking-wider text-signal hover:gap-3 transition-all">
-                            See full portfolio <ArrowRight size={14} />
-                        </Link>
-                    </Reveal>
-                </div>
-            </section>
-
-
-            {/* ============ TESTIMONIALS ============ */}
-            <section className="bg-paper py-24">
-                <div className="max-w-6xl mx-auto px-6">
-                    <Reveal>
-                        <div className="text-center mb-14 max-w-2xl mx-auto">
-                            <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-4">Testimonials</p>
-                            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
-                                What our <span className="text-gradient">clients say.</span>
-                            </h2>
-                        </div>
-                    </Reveal>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            { name: 'Muhammad Ishfaq', role: 'Founder, SellHive', text: 'We needed a website that brings in leads and a proper system to manage our accounts. akclnt built both. The site looks professional, the accounting system saves us hours every month, and Komil was always quick to reply whenever we needed a change.' },
-                            { name: 'Sarfaraz', role: 'Founder, SoftwayHub', text: 'We partnered with akclnt on an AI chatbot for one of our client projects. Komil understood the requirements quickly, kept us updated throughout and delivered a working solution on time. A reliable team to work with.' },
-                            { name: 'Syed Murtaza', role: 'Founder, E-commerce Startup', text: 'We were just starting out and needed an online store that looks trustworthy from day one. akclnt built it quickly, set up everything from products to payments, and explained how to manage it ourselves. Great support for a new business.' },
-                        ].map((t, i) => {
-                            const accents = [
-                                { from: '#5B5FEF', to: '#8B7BF7', glow: 'rgba(91,95,239,0.12)' },
-                                { from: '#00A896', to: '#5B5FEF', glow: 'rgba(0,168,150,0.12)' },
-                                { from: '#8B7BF7', to: '#00A896', glow: 'rgba(139,123,247,0.12)' },
-                            ];
-                            const accent = accents[i];
-                            return (
-                                <Reveal key={t.name} delay={i * 0.08}>
-                                    <div className="group h-full bg-white border border-gray-100 rounded-2xl p-8 flex flex-col transition-all duration-300 hover:-translate-y-2"
-                                         style={{ boxShadow: `0 8px 32px -12px ${accent.glow}` }}>
-                                        <div className="flex gap-1 mb-5">
-                                            {[...Array(5)].map((_, s) => (
-                                                <svg key={s} width="15" height="15" viewBox="0 0 24 24" style={{ fill: accent.from }}>
-                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                                </svg>
-                                            ))}
-                                        </div>
-                                        <p className="text-graphite text-sm leading-relaxed flex-1">"{t.text}"</p>
-                                        <div className="flex items-center gap-3 mt-6 pt-5 border-t border-gray-100">
-                                            <div className="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white shrink-0"
-                                                 style={{ background: `linear-gradient(135deg, ${accent.from}, ${accent.to})` }}>
-                                                {t.name.charAt(0)}
-                                            </div>
-                                            <div>
-                                                <div className="font-display font-bold text-ink text-sm">{t.name}</div>
-                                                <div className="font-mono text-[0.65rem] uppercase tracking-wider text-graphite">{t.role}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Reveal>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
 
             {/* ============ FINAL CTA ============ */}
             <section className="relative bg-void text-paper py-28 overflow-hidden">

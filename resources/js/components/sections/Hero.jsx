@@ -10,9 +10,9 @@ const stats = [
 
 
 const clients = [
-  { name: "Ezitech", logo: null },
-  { name: "SellHive", logo: null },
-  { name: "SoftwayHub", logo: null },
+  { name: "Ezitech", logo: null, role: "Enterprise" },
+  { name: "SellHive", logo: null, role: "Client" },
+  { name: "SoftwayHub", logo: null, role: "Partner" },
 ];
 
 function CountUp({ value, duration = 2600 })  {
