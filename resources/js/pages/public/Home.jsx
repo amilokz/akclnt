@@ -381,61 +381,62 @@ export default function Home() {
             })()}
 
             {/* ============ WHY CHOOSE US ============ */}
-            <section className="max-w-6xl mx-auto px-6 py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-                    <Reveal className="lg:sticky lg:top-24">
-                        <span className="font-mono text-xs uppercase tracking-wider text-signal">Why akclnt</span>
-                        <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink mt-3 leading-tight tracking-tight">
-                            The reasons{" "}
-                            <span className="text-gradient">clients stay.</span>
-                        </h2>
-                        <p className="text-graphite mt-4 leading-relaxed">
-                            We're a small studio on purpose. It keeps us fast, honest, and close to the work.
-                        </p>
+            <section className="relative bg-white py-24 overflow-hidden">
+                {/* colour blobs behind the glass */}
+                <div aria-hidden="true" className="blob pointer-events-none absolute top-24 left-[8%] h-72 w-72 rounded-full bg-signal/25 blur-3xl" />
+                <div aria-hidden="true" className="blob-delay pointer-events-none absolute bottom-10 left-[40%] h-80 w-80 rounded-full bg-teal/20 blur-3xl" />
+                <div aria-hidden="true" className="blob pointer-events-none absolute top-10 right-[6%] h-72 w-72 rounded-full bg-violet/25 blur-3xl" />
+
+                <div className="relative max-w-6xl mx-auto px-6">
+                    <Reveal>
+                        <div className="text-center max-w-2xl mx-auto mb-16">
+                            <span className="font-mono text-xs uppercase tracking-[0.25em] text-signal">Why akclnt</span>
+                            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-ink mt-3 leading-tight tracking-tight">
+                                The reasons <span className="text-gradient">clients stay.</span>
+                            </h2>
+                            <p className="text-graphite mt-4 leading-relaxed">
+                                We are a small studio on purpose. It keeps us fast, honest and close to the work.
+                            </p>
+                        </div>
                     </Reveal>
-                    <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 [perspective:1200px]">
                         {whyUs.map((w, i) => {
                             const Icon = w.icon;
-                            const accents = [
-                                { from: "#5B5FEF", to: "#8B7BF7", glow: "rgba(91,95,239,0.15)", light: "rgba(91,95,239,0.08)" },
-                                { from: "#00A896", to: "#5B5FEF", glow: "rgba(0,168,150,0.15)", light: "rgba(0,168,150,0.08)" },
-                                { from: "#8B7BF7", to: "#00A896", glow: "rgba(139,123,247,0.15)", light: "rgba(139,123,247,0.08)" },
-                            ];
-                            const accent = accents[i];
+                            const accent = [
+                                { from: '#5B5FEF', to: '#8B7BF7', chip: 'Launch-ready code' },
+                                { from: '#00A896', to: '#5B5FEF', chip: 'Live client dashboard' },
+                                { from: '#8B7BF7', to: '#00A896', chip: 'Talk to your developer' },
+                            ][i % 3];
                             return (
-                                <div
-                                    key={w.title}
-                                    className="group relative rounded-2xl p-px overflow-hidden transition-all duration-300 hover:-translate-y-2"
-                                    style={{
-                                        background: `linear-gradient(135deg, ${accent.from}55, rgba(0,0,0,0.04))`,
-                                        minHeight: "320px",
-                                    }}
-                                >
-                                    <div
-                                        className="relative rounded-2xl p-8 h-full flex flex-col"
-                                        style={{ backgroundColor: "#ffffff", boxShadow: `0 8px 32px -8px ${accent.glow}` }}
-                                    >
-                                        <div
-                                            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                            style={{ background: `radial-gradient(circle at 30% 0%, ${accent.light}, transparent 70%)` }}
-                                        />
-                                        <div
-                                            className="relative w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
-                                            style={{
-                                                background: `linear-gradient(135deg, ${accent.from}18, ${accent.to}18)`,
-                                                border: `1.5px solid ${accent.from}33`,
-                                            }}
-                                        >
-                                            <Icon size={26} style={{ color: accent.from }} />
+                                <Reveal key={w.title} delay={i * 0.1}>
+                                    <TiltCard max={8} scale={1.03} className="h-full rounded-3xl" style={{ transformStyle: 'preserve-3d' }}>
+                                        <div className="relative h-full rounded-3xl p-8 flex flex-col border border-white/80 bg-white/45 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(91,95,239,0.35)]"
+                                             style={{ transformStyle: 'preserve-3d' }}>
+                                            {/* top light edge */}
+                                            <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+                                            {/* big number watermark */}
+                                            <span aria-hidden="true" className="absolute right-6 top-4 font-display text-7xl font-black leading-none select-none"
+                                                  style={{ color: accent.from, opacity: 0.1, transform: 'translateZ(20px)' }}>
+                                                0{i + 1}
+                                            </span>
+
+                                            <div className="relative w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg"
+                                                 style={{ background: `linear-gradient(135deg, ${accent.from}, ${accent.to})`, boxShadow: `0 16px 30px -10px ${accent.from}99`, transform: 'translateZ(60px)' }}>
+                                                <Icon size={26} className="text-white" />
+                                            </div>
+
+                                            <h3 className="font-display text-xl font-bold text-ink mt-7" style={{ transform: 'translateZ(40px)' }}>{w.title}</h3>
+                                            <p className="text-graphite text-sm leading-relaxed mt-3 flex-1" style={{ transform: 'translateZ(25px)' }}>{w.desc}</p>
+
+                                            <span className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-white/80 bg-white/70 px-3.5 py-1.5 text-xs font-medium text-ink"
+                                                  style={{ transform: 'translateZ(35px)' }}>
+                                                <span className="h-1.5 w-1.5 rounded-full" style={{ background: accent.from }} />
+                                                {accent.chip}
+                                            </span>
                                         </div>
-                                        <h3 className="font-display text-lg font-bold text-ink mb-3 relative">{w.title}</h3>
-                                        <p className="text-graphite text-sm leading-relaxed relative flex-1">{w.desc}</p>
-                                        <div
-                                            className="mt-6 h-1 w-0 group-hover:w-full rounded-full transition-all duration-500"
-                                            style={{ background: `linear-gradient(to right, ${accent.from}, ${accent.to})` }}
-                                        />
-                                    </div>
-                                </div>
+                                    </TiltCard>
+                                </Reveal>
                             );
                         })}
                     </div>
