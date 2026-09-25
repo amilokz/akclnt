@@ -112,6 +112,12 @@ export default function Home() {
 
             {/* ============ PILLARS ============ */}
             <section className="relative py-24 overflow-hidden bg-white">
+                {/* dotted background + soft glow */}
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-60"
+                     style={{ backgroundImage: 'radial-gradient(rgba(11,13,20,0.08) 1px, transparent 1px)', backgroundSize: '22px 22px',
+                              maskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 80%)' }} />
+                <div aria-hidden="true" className="blob pointer-events-none absolute -top-20 right-[10%] h-72 w-72 rounded-full bg-signal/15 blur-3xl" />
+
                 <div className="relative max-w-6xl mx-auto px-6">
                     <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
                         <div className="max-w-2xl">
@@ -128,39 +134,62 @@ export default function Home() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                         {pillars.map((p) => {
                             const Icon = p.icon;
                             if (p.featured) {
                                 return (
                                     <Link key={p.title} to="/services"
-                                        className="group relative md:col-span-2 rounded-3xl bg-void text-paper p-8 md:p-10 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
-                                        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-signal/30 blur-3xl" />
-                                        <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-teal/20 blur-3xl" />
-                                        <div className="relative">
-                                            <div className="flex items-center justify-between gap-4">
-                                                <span className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center"><Icon size={22} className="text-teal" /></span>
-                                                <span className="font-mono text-[0.65rem] uppercase tracking-wider text-teal bg-teal/10 px-3 py-1 rounded-full">Most requested</span>
-                                            </div>
-                                            <h3 className="font-display text-2xl md:text-3xl font-bold mt-6">{p.title}</h3>
-                                            <p className="text-white/60 mt-3 max-w-lg leading-relaxed">{p.desc}</p>
-                                            <div className="mt-8 flex flex-wrap items-center gap-2 font-mono text-xs">
-                                                {['New WhatsApp message', 'AI replies instantly', 'Lead saved and team notified'].map((step, i, arr) => (
-                                                    <React.Fragment key={step}>
-                                                        <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-2 text-white/80">{step}</span>
-                                                        {i < arr.length - 1 && <span className="text-signal">→</span>}
-                                                    </React.Fragment>
-                                                ))}
-                                            </div>
-                                            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                                                <div className="flex flex-wrap gap-2">
+                                        className="group relative md:col-span-2 lg:col-span-4 rounded-3xl bg-void text-paper p-8 md:p-10 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
+                                        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-signal/30 blur-3xl" />
+                                        <div aria-hidden="true" className="pointer-events-none absolute -bottom-28 left-10 h-64 w-64 rounded-full bg-teal/20 blur-3xl" />
+                                        <div className="relative grid lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
+                                            <div>
+                                                <div className="flex items-center gap-3">
+                                                    <span className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center"><Icon size={22} className="text-teal" /></span>
+                                                    <span className="font-mono text-[0.65rem] uppercase tracking-wider text-teal bg-teal/10 px-3 py-1 rounded-full">Most requested</span>
+                                                </div>
+                                                <h3 className="font-display text-3xl md:text-4xl font-bold mt-6">{p.title}</h3>
+                                                <p className="text-white/60 mt-3 max-w-lg leading-relaxed">{p.desc}</p>
+                                                <div className="mt-7 flex flex-wrap gap-2">
                                                     {p.chips.map((c) => (
-                                                        <span key={c} className="text-xs font-medium text-white/70 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">{c}</span>
+                                                        <span key={c} className="text-xs font-medium text-white/75 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">{c}</span>
                                                     ))}
                                                 </div>
-                                                <span className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-signal group-hover:gap-2.5 transition-all">
-                                                    Explore <ArrowUpRight size={14} />
+                                                <span className="mt-8 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-signal group-hover:gap-2.5 transition-all">
+                                                    See what AI can do for you <ArrowUpRight size={14} />
                                                 </span>
+                                            </div>
+
+                                            {/* live chat demo */}
+                                            <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur p-5 shadow-2xl shadow-black/40" aria-label="Example: AI replying to a customer on WhatsApp">
+                                                <div className="flex items-center gap-3 pb-4 border-b border-white/10">
+                                                    <span className="relative w-9 h-9 rounded-full bg-gradient-to-br from-signal to-teal flex items-center justify-center"><Bot size={18} className="text-white" /></span>
+                                                    <div>
+                                                        <p className="text-sm font-semibold">Your business AI</p>
+                                                        <p className="flex items-center gap-1.5 text-[0.7rem] text-teal"><span className="h-1.5 w-1.5 rounded-full bg-teal" /> online 24/7 on WhatsApp</p>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-4 grid gap-3 text-sm">
+                                                    <div className="chat-anim chat-1 max-w-[80%] rounded-2xl rounded-tl-sm bg-white/10 px-4 py-2.5 text-white/85">
+                                                        Hi, do you deliver to Lahore? Price for 2 pieces?
+                                                        <span className="block text-[0.65rem] text-white/40 mt-1">2:14 AM</span>
+                                                    </div>
+                                                    <div className="grid">
+<div className="chat-anim chat-typing col-start-1 row-start-1 justify-self-start self-start w-fit rounded-2xl rounded-tl-sm bg-white/10 px-4 py-3 flex gap-1">
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce" />
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce [animation-delay:150ms]" />
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce [animation-delay:300ms]" />
+                                                    </div>
+                                                    <div className="chat-anim chat-2 col-start-1 row-start-1 justify-self-end max-w-[85%] rounded-2xl rounded-tr-sm bg-signal px-4 py-2.5 text-white">
+                                                        Yes! Delivery to Lahore takes 2-3 days. 2 pieces are Rs 3,400 with free delivery. Shall I place the order?
+                                                        <span className="block text-[0.65rem] text-white/60 mt-1 text-right">2:14 AM · AI</span>
+                                                    </div>
+</div>
+                                                    <div className="chat-anim chat-3 mx-auto inline-flex items-center gap-2 rounded-full bg-teal/15 border border-teal/30 px-3 py-1.5 text-[0.7rem] text-teal">
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-teal" /> Lead saved · team notified
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </Link>
@@ -168,15 +197,22 @@ export default function Home() {
                             }
                             return (
                                 <Link key={p.title} to="/services"
-                                    className="group relative rounded-3xl border border-gray-200 bg-white p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-signal/40 hover:shadow-[0_20px_50px_-20px_rgba(91,95,239,0.35)]">
-                                    <span className="w-12 h-12 rounded-2xl bg-signal/10 flex items-center justify-center transition-colors group-hover:bg-signal">
-                                        <Icon size={22} className="text-signal transition-colors group-hover:text-white" />
-                                    </span>
-                                    <h3 className="font-display text-xl font-bold text-ink mt-6">{p.title}</h3>
-                                    <p className="text-graphite text-sm leading-relaxed mt-2 flex-1">{p.desc}</p>
-                                    <div className="mt-6 flex flex-wrap gap-2">
+                                    onMouseMove={(e) => { const r = e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`); e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`); }}
+                                    className="group relative rounded-3xl border border-gray-200 bg-white/80 backdrop-blur p-7 flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:border-signal/40 hover:shadow-[0_24px_60px_-24px_rgba(91,95,239,0.45)]">
+                                    {/* mouse spotlight */}
+                                    <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                         style={{ background: 'radial-gradient(260px circle at var(--x, 50%) var(--y, 50%), rgba(91,95,239,0.12), transparent 65%)' }} />
+                                    <div className="relative flex items-start justify-between">
+                                        <span className="w-14 h-14 rounded-2xl bg-gradient-to-br from-signal/10 to-teal/10 border border-signal/15 flex items-center justify-center transition-all duration-300 group-hover:from-signal group-hover:to-violet group-hover:rotate-[-6deg] group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-signal/30">
+                                            <Icon size={24} className="text-signal transition-colors group-hover:text-white" />
+                                        </span>
+                                        <ArrowUpRight size={18} className="text-signal opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all" />
+                                    </div>
+                                    <h3 className="relative font-display text-xl font-bold text-ink mt-6">{p.title}</h3>
+                                    <p className="relative text-graphite text-sm leading-relaxed mt-2 flex-1">{p.desc}</p>
+                                    <div className="relative mt-6 flex flex-wrap gap-2">
                                         {p.chips.map((c) => (
-                                            <span key={c} className="text-xs text-graphite bg-gray-100 px-2.5 py-1 rounded-full">{c}</span>
+                                            <span key={c} className="text-xs text-graphite bg-gray-100 px-2.5 py-1 rounded-full transition-colors group-hover:bg-signal/10 group-hover:text-signal">{c}</span>
                                         ))}
                                     </div>
                                 </Link>
