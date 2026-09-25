@@ -450,3 +450,7 @@ body {
 /* Second marquee row (runs the other way) */
 .marquee-track-reverse { animation: marquee 34s linear infinite reverse; }
 @media (prefers-reduced-motion: reduce) { .marquee-track-reverse { animation: none !important; } }
+
+/* Hide scrollbar but keep scrolling (service tabs on mobile) */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

@@ -294,7 +294,7 @@ export function Hero() {
         </div>
 
         {/* ===== RIGHT — visual (no box, just glow) ===== */}
-        <div className="relative lg:-mr-16 xl:-mr-28 animate-[fadeInUp_0.7s_ease_0.5s_both]">
+        <div className="relative hidden lg:block lg:-mr-16 xl:-mr-28 animate-[fadeInUp_0.7s_ease_0.5s_both]">
           <div
             className="absolute inset-6 rounded-[2rem] blur-3xl pointer-events-none"
             style={{ background: "radial-gradient(circle at 50% 40%, rgba(91,95,239,0.25), transparent 65%)" }}

@@ -74,10 +74,11 @@ const featured = [
 
 export default function Home() {
     const [services, setServices] = useState([]);
+    const [serviceCat, setServiceCat] = useState('All');
 
     useEffect(() => {
         axios.get('/api/services')
-            .then((res) => setServices(res.data.slice(0, 4)))
+            .then((res) => setServices(res.data))
             .catch(() => {});
     }, []);
 
@@ -296,49 +297,88 @@ export default function Home() {
             </section>
 
             {/* ============ SERVICES ============ */}
-            {services.length > 0 && (
+            {services.length > 0 && (() => {
+                const counts = services.reduce((acc, s) => { const c = s.category || 'Other'; acc[c] = (acc[c] || 0) + 1; return acc; }, {});
+                const cats = ['All', ...Object.keys(counts).sort((a, b) => counts[b] - counts[a])];
+                const list = serviceCat === 'All' ? services : services.filter((s) => (s.category || 'Other') === serviceCat);
+                const shown = list.slice(0, 8);
+                const more = list.length - shown.length;
+                return (
                 <section className="relative bg-void text-paper py-24 overflow-hidden">
-                    <div className="grid-overlay-dark absolute inset-0 opacity-60" />
-                    <div className="aurora absolute w-[40vw] h-[40vw] rounded-full blur-3xl top-10 -right-20"
-                         style={{ background: 'radial-gradient(circle, rgba(91,95,239,0.2), transparent 60%)' }} />
+                    <div className="grid-overlay-dark absolute inset-0 opacity-50" />
+                    <div aria-hidden="true" className="pointer-events-none absolute -top-20 -right-20 h-[28rem] w-[28rem] rounded-full bg-signal/20 blur-3xl" />
+                    <div aria-hidden="true" className="pointer-events-none absolute bottom-0 -left-24 h-80 w-80 rounded-full bg-teal/10 blur-3xl" />
                     <div className="relative max-w-6xl mx-auto px-6">
-                        <Reveal>
-                            <div className="flex flex-wrap items-end justify-between gap-4 mb-14">
-                                <div>
-                                    <span className="font-mono text-xs uppercase tracking-wider text-teal">Full service list</span>
-                                    <h2 className="font-display text-3xl md:text-4xl font-semibold mt-3">Everything we offer.</h2>
-                                </div>
-                                <Link to="/services" className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-white/70 hover:text-white transition-colors">
-                                    View all <ArrowRight size={14} />
-                                </Link>
+                        <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
+                            <div>
+                                <span className="font-mono text-xs uppercase tracking-wider text-teal">Full service list</span>
+                                <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight mt-3">
+                                    Everything we <span className="text-gradient">offer.</span>
+                                </h2>
+                                <p className="text-white/55 mt-3">
+                                    {services.length} services across {Object.keys(counts).length} categories, all under one roof.
+                                </p>
                             </div>
-                        </Reveal>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            {services.map((service, i) => (
-                                <Reveal key={service.id} delay={i * 0.08}>
-                                    <TiltCard max={6}>
-                                        <Link
-                                            to={`/services/${service.id}`}
-                                            className="group flex items-start gap-4 glass-dark rounded-2xl p-6 hover:border-signal/50 transition-colors"
-                                        >
-                                            <div className="text-3xl shrink-0 w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center">
-                                                {service.icon}
-                                            </div>
-                                            <div>
-                                                <h3 className="font-display text-lg font-semibold text-white mb-1.5 flex items-center gap-2">
-                                                    {service.name}
-                                                    <ArrowUpRight size={16} className="text-teal opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                                                </h3>
-                                                <p className="text-white/55 text-sm leading-relaxed line-clamp-2">{service.description}</p>
-                                            </div>
-                                        </Link>
-                                    </TiltCard>
-                                </Reveal>
+                            <Link to="/services" className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-white/70 hover:text-white transition-colors">
+                                View all <ArrowRight size={14} />
+                            </Link>
+                        </div>
+
+                        {/* category tabs */}
+                        <div className="-mx-6 px-6 overflow-x-auto no-scrollbar pb-2 mb-8 md:mx-0 md:px-0 md:overflow-visible">
+                            <div className="flex gap-2 w-max md:w-auto md:flex-wrap">
+                                {cats.map((c) => (
+                                    <button key={c} onClick={() => setServiceCat(c)} aria-pressed={serviceCat === c}
+                                        className={`whitespace-nowrap text-xs font-medium px-4 py-2 rounded-full border transition-colors ${
+                                            serviceCat === c ? 'bg-white text-ink border-white' : 'border-white/15 text-white/60 hover:border-white/40 hover:text-white'
+                                        }`}>
+                                        {c}<span className="ml-1.5 opacity-50">{c === 'All' ? services.length : counts[c]}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {shown.map((s) => (
+                                <Link key={s.id} to={`/services/${s.id}`}
+                                    className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-signal/50 hover:bg-white/[0.06]">
+                                    <div className="flex items-start justify-between">
+                                        <span className="text-2xl w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">{s.icon}</span>
+                                        <ArrowUpRight size={16} className="text-teal opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                    </div>
+                                    <span className="mt-4 font-mono text-[0.6rem] uppercase tracking-wider text-teal">{s.category}</span>
+                                    <h3 className="font-display font-semibold text-paper mt-1">{s.name}</h3>
+                                    <p className="text-white/50 text-sm leading-relaxed mt-2 line-clamp-2 flex-1">{s.description}</p>
+                                    {Array.isArray(s.features) && s.features.length > 0 && (
+                                        <div className="mt-4 flex flex-wrap gap-1.5">
+                                            {s.features.slice(0, 2).map((f) => (
+                                                <span key={f} className="text-[0.7rem] text-white/60 bg-white/5 px-2 py-0.5 rounded-full">{f}</span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </Link>
                             ))}
+                            {more > 0 && (
+                                <Link to="/services"
+                                    className="group rounded-2xl border border-dashed border-white/20 p-5 flex flex-col items-center justify-center text-center transition-colors hover:border-signal/60">
+                                    <span className="font-display text-3xl font-bold text-paper">+{more}</span>
+                                    <span className="text-sm text-white/55 mt-1">more services</span>
+                                    <span className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-signal">See all <ArrowRight size={14} /></span>
+                                </Link>
+                            )}
+                        </div>
+
+                        {/* help strip */}
+                        <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-wrap items-center justify-between gap-4">
+                            <p className="text-white/70">
+                                <span className="text-paper font-semibold">Not sure what you need?</span> Tell us the problem and we will suggest the right service.
+                            </p>
+                            <Link to="/contact" className="btn-primary rounded-full px-6 py-3 text-sm font-semibold">Get a free consultation</Link>
                         </div>
                     </div>
                 </section>
-            )}
+                );
+            })()}
 
             {/* ============ WHY CHOOSE US ============ */}
             <section className="max-w-6xl mx-auto px-6 py-24">
